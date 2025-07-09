@@ -2,9 +2,15 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { UsersSeeder } from './seeders/seeds/seed-users';
+import { SeederService } from './seeders/seed.service';
+import { TransactionModule } from 'src/infrastructure/transaction/transaction.module';
+import { ProvincesSeeder } from './seeders/seeds/seed-provincs';
+import { DistrictsSeeder } from './seeders/seeds/seed-districts';
 @Module({
     imports: [
         ConfigModule,
+        TransactionModule,
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
@@ -15,12 +21,13 @@ import { join } from 'path';
                 username: configService.getOrThrow('DB_USERNAME'),
                 password: configService.getOrThrow('DB_PASSWORD'),
                 database: configService.getOrThrow('DB_NAME'),
-                entities: [join(__dirname, '..', '**', '*.orm-entity.{js,ts}')],
+                entities: [join(__dirname, '..', 'infrastructure', 'typeorm', '**', '*.orm-entity.{js,ts}')],
                 synchronize: configService.getOrThrow('DB_SYNCHRONIZE') === 'true',
                 logging: configService.getOrThrow('DB_LOGGING') === 'true',
                 migrationsTableName: 'migrations',
             }),
         })
     ],
+    providers:[UsersSeeder,SeederService,ProvincesSeeder,DistrictsSeeder]
 })
 export class TypeOrmRepositoryModule { }

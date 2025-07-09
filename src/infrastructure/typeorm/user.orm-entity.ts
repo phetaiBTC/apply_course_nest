@@ -1,12 +1,15 @@
+import { SharedBaseEntity } from 'src/shared/base/baseEntity';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-// src/infrastructure/typeorm/user.orm-entity.ts
 @Entity('users') // ชื่อตารางใน DB
-export class UserEntity {
+export class UserEntity extends SharedBaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
+
+  @Column()
+  surname: string;
 
   @Column({ unique: true })
   email: string;
@@ -14,10 +17,4 @@ export class UserEntity {
   @Column()
   password: string;
 
-  // เพิ่ม field อื่น ๆ ได้ เช่น timestamps
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
 }

@@ -1,6 +1,7 @@
 // src/database/data-source.ts
 import 'dotenv/config';
 import { join } from 'path';
+import { UserEntity } from 'src/infrastructure/typeorm/user.orm-entity';
 import { DataSource } from 'typeorm';
 
 export const AppDataSource = new DataSource({
@@ -10,8 +11,9 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [join(__dirname, '..', '**', '*.orm-entity.{js,ts}')],
+  entities: [join(__dirname, '..', 'infrastructure', 'typeorm', '**', '*.orm-entity.{js,ts}')],
   synchronize: process.env.DB_SYNCHRONIZE === 'true',
   logging: process.env.DB_LOGGING === 'true',
   migrationsTableName: 'migrations',
+  migrations: [join(__dirname, 'migrations', '**', '*.{ts,js}')],
 });

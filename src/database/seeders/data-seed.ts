@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { NestFactory } from '@nestjs/core';
 import { TypeOrmRepositoryModule } from '../typeOrm.module';
 import { SeederService } from './seed.service';

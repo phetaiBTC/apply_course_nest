@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
 import { UserEntity } from 'src/infrastructure/typeorm/user.orm-entity';
-import { hashPassword } from 'src/utils/bcrypt.util';
+import { hashPassword } from 'src/shared/utils/bcrypt.util';
 @Injectable()
 export class UsersSeeder {
     constructor() { }
@@ -10,18 +10,21 @@ export class UsersSeeder {
         const _respository = manager.getRepository(UserEntity);
         const items = [
             {
-                username: 'super admin',
+                name: 'super admin',
                 email: 'super_admin@gmail.com',
+                surname: 'super admin',
                 password: await hashPassword('super@1234'),
             },
             {
-                username: 'admin',
+                name: 'admin',
                 email: 'admin@gmail.com',
+                surname: 'admin',
                 password: await hashPassword('admin@1234'),
             },
             {
-                username: 'user',
+                name: 'user',
                 email: 'user@gmail.com',
+                surname: 'user',
                 password: await hashPassword('user@1234'),
             },
         ];
