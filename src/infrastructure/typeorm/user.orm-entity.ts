@@ -1,5 +1,6 @@
 import { SharedBaseEntity } from 'src/shared/base/baseEntity';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
 @Entity('users') // ชื่อตารางใน DB
 export class UserEntity extends SharedBaseEntity {
   @PrimaryGeneratedColumn()
@@ -16,5 +17,6 @@ export class UserEntity extends SharedBaseEntity {
 
   @Column()
   password: string;
+
 
 }

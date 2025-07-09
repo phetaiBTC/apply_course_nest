@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmRepositoryModule } from './database/typeOrm.module';
+import { StudentModule } from './modules/students/student.module';
 
 @Module({
   imports: [
@@ -9,7 +10,8 @@ import { TypeOrmRepositoryModule } from './database/typeOrm.module';
       isGlobal: true,
     }),
     TypeOrmRepositoryModule,
-    UserModule
+    UserModule,
+    StudentModule
   ],
 })
 export class AppModule { }
