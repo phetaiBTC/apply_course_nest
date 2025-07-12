@@ -1,6 +1,6 @@
 import { ProvinceEntity } from "./province.orm-entity";
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
-import { StudentEntity } from "./student-entity";
+import { StudentEntity } from "./student.orm-entity";
 @Entity('district')
 export class DistrictEntity {
     @PrimaryGeneratedColumn()
