@@ -8,13 +8,14 @@ import { DataSource } from "typeorm";
 import { hashPassword } from "src/shared/utils/bcrypt.util";
 import { UserEntity } from "src/infrastructure/typeorm/user.orm-entity";
 import { StudentEntity } from "src/infrastructure/typeorm/student.orm-entity";
+import { StudentMapper } from "./mappers/student.mapper";
 
 @Injectable()
 export class StudentRepositoryImpl implements StudentRepository {
     constructor(
         @Inject(TRANSACTION_MANAGER_SERVICE)
         private readonly transactionManagerService: ITransactionManager,
-        private readonly dataSource: DataSource,
+        private readonly dataSource: DataSource
     ) { }
     async create(student: Student): Promise<Student> {
         const queryRunner = await this.transactionManagerService.runInTransaction(
@@ -37,16 +38,6 @@ export class StudentRepositoryImpl implements StudentRepository {
                 return { savedStudent, savedUser };
             }
         );
-        return new Student(
-            {
-                id: queryRunner.savedStudent.id,
-                name: queryRunner.savedStudent.name,
-                email: queryRunner.savedUser.email,
-                surname: queryRunner.savedStudent.surname,
-                password: queryRunner.savedUser.password,
-                createdAt: queryRunner.savedStudent.createdAt,
-                updatedAt: queryRunner.savedStudent.updatedAt,
-            }
-        );
+        return StudentMapper.toDomain(queryRunner.savedStudent, queryRunner.savedUser);
     }
 }

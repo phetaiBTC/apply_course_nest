@@ -5,6 +5,8 @@
 import { StudentEntity } from "src/infrastructure/typeorm/student.orm-entity";
 import { Student } from "../../domain/student.entity";
 import { StudentModule } from "../../student.module";
+import { User } from "src/modules/user/domain/user.entity";
+import { UserEntity } from "src/infrastructure/typeorm/user.orm-entity";
 
 // export class UserMapper {
 //     static toDomain(orm: UserEntity): User {
@@ -35,14 +37,14 @@ import { StudentModule } from "../../student.module";
 // }
 
 export class StudentMapper {
-    static toDomain(orm: StudentEntity): Student {
+    static toDomain(orm: StudentEntity, user: UserEntity): Student {
         return new Student(
             {
                 id: orm.id,
                 name: orm.name,
-                email: orm.user.email,
+                email: user.email,
                 surname: orm.surname,
-                password: orm.user.password,
+                password: user.password,
                 createdAt: orm.createdAt,
                 updatedAt: orm.updatedAt,
             }
