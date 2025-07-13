@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { TRANSACTION_MANAGER_SERVICE } from 'src/shared/constants/inject-key';
 import { TransactionManagerService } from './transaction.service';
-
+@Global()
 @Module({
   providers: [
     {

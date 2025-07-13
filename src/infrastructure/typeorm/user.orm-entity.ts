@@ -1,5 +1,6 @@
 import { SharedBaseEntity } from 'src/shared/base/baseEntity';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { StudentEntity } from './student.orm-entity';
 
 @Entity('users') // ชื่อตารางใน DB
 export class UserEntity extends SharedBaseEntity {
@@ -18,5 +19,6 @@ export class UserEntity extends SharedBaseEntity {
   @Column()
   password: string;
 
-
+  @OneToOne(() => StudentEntity, (student) => student.user)
+  student: StudentEntity;
 }

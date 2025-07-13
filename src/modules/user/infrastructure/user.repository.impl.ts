@@ -27,21 +27,16 @@ export class UserRepositoryImpl implements UserRepository {
       .skip(skip)
       .take(limit)
       .getManyAndCount();
-
-    const userEntities = users.map(UserMapper.toDomain);
-
     return {
-      data: userEntities,
+      data: users.map(UserMapper.toDomain),
       count,
     };
   }
 
   async create(user: User): Promise<User> {
     const orm = UserMapper.toOrm(user);
-    const Cuser = await this.userRepo.create({
-      name: orm.name,
-      email: orm.email,
-      surname: orm.surname,
+    const Cuser = this.userRepo.create({
+      ...orm,
       password: await hashPassword(orm.password),
     });
     const saved = await this.userRepo.save(Cuser);
@@ -75,13 +70,5 @@ export class UserRepositoryImpl implements UserRepository {
 
   async softDelete(id: number): Promise<void> {
     await this.userRepo.softDelete(id);
-  }
-
-  async searchByName(name: string): Promise<User[]> {
-    const users = await this.userRepo
-      .createQueryBuilder('user')
-      .where('user.name LIKE :name', { name: `%${name}%` })
-      .getMany();
-    return users.map(UserMapper.toDomain);
   }
 }

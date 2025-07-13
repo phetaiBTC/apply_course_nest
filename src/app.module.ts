@@ -2,8 +2,11 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmRepositoryModule } from './database/typeOrm.module';
-import { StudentModule } from './modules/students/student.module';
-import { TeachersModule } from './modules/teachers/teachers.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './modules/auth/guard/jwt.guard';
+import { StudentModule } from './modules/student/student.module';
+import { TransactionModule } from './infrastructure/transaction/transaction.module';
 
 @Module({
   imports: [
@@ -11,9 +14,16 @@ import { TeachersModule } from './modules/teachers/teachers.module';
       isGlobal: true,
     }),
     TypeOrmRepositoryModule,
+    TransactionModule,
     UserModule,
-    StudentModule,
-    TeachersModule
+    AuthModule,
+    StudentModule
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class AppModule { }

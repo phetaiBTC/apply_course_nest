@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
@@ -7,6 +7,7 @@ import { SeederService } from './seeders/seed.service';
 import { TransactionModule } from 'src/infrastructure/transaction/transaction.module';
 import { ProvincesSeeder } from './seeders/seeds/seed-provincs';
 import { DistrictsSeeder } from './seeders/seeds/seed-districts';
+
 @Module({
     imports: [
         ConfigModule,

@@ -10,7 +10,7 @@ export class User {
     public deletedAt?: Date | null,
   ) { }
 
-  changeName(newName: string) {
-    this.name = newName;
-  }
+  // changeName(newName: string) {
+  //   this.name = newName;
+  // }
 }

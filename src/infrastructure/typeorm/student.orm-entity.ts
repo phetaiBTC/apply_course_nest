@@ -1,8 +1,13 @@
-import { PrimaryGeneratedColumn, Column, Entity, OneToMany, ManyToOne } from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity, ManyToOne, OneToOne, JoinColumn } from "typeorm";
 import { DistrictEntity } from "./district.orm-entity";
-
-@Entity()
-export class StudentEntity {
+import { SharedBaseEntity } from "src/shared/base/baseEntity";
+import { UserEntity } from "./user.orm-entity";
+export enum Gender {
+    MALE = 'male',
+    FEMALE = 'female'
+}
+@Entity('student')
+export class StudentEntity extends SharedBaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -12,12 +17,16 @@ export class StudentEntity {
     @Column()
     surname: string;
 
-    @Column()
+    @Column({ nullable: true })
     birth_date: Date;
 
-    @Column()
-    gender: 'male' | 'female';
-    
-    @ManyToOne(() => DistrictEntity, (district) => district.students)
+    @Column({ nullable: true })
+    gender: Gender;
+
+    @OneToOne(() => UserEntity, { nullable: false })
+    @JoinColumn()
+    user: UserEntity;
+
+    @ManyToOne(() => DistrictEntity, (district) => district.students, { nullable: true })
     district: DistrictEntity
 }   
