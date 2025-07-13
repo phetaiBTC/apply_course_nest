@@ -5,6 +5,9 @@ import { UserEntity } from 'src/infrastructure/typeorm/user.orm-entity';
 import { UserRepository } from '../domain/user.repository';
 import { UserMapper } from './mappers/user.mapper';
 import { User } from '../domain/user.entity';
+import { IpaginationQuery } from 'src/shared/interface/pagination-interface';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
+import { hashPassword } from 'src/shared/utils/bcrypt.util';
 
 @Injectable()
 export class UserRepositoryImpl implements UserRepository {
@@ -12,26 +15,49 @@ export class UserRepositoryImpl implements UserRepository {
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
   ) { }
-  async findAll(): Promise<User[]> {
-    const users = await this.userRepo.find();
-    return users.map(UserMapper.toDomain);
+  async findAll(paginationQuery: PaginationQueryDto): Promise<IpaginationQuery<User[]>> {
+    const { limit = 10, offset = 1, search = '' } = paginationQuery;
+    const skip = (offset - 1) * limit;
+    const qb = this.userRepo.createQueryBuilder('user');
+    if (search) {
+      qb.where('user.name LIKE :search OR user.email LIKE :search', { search: `%${search}%` });
+    }
+    const [users, count] = await qb
+      .orderBy('user.createdAt', 'DESC')
+      .skip(skip)
+      .take(limit)
+      .getManyAndCount();
+
+    const userEntities = users.map(UserMapper.toDomain);
+
+    return {
+      data: userEntities,
+      count,
+    };
   }
+
   async create(user: User): Promise<User> {
     const orm = UserMapper.toOrm(user);
-    const saved = await this.userRepo.save(orm);
+    const Cuser = await this.userRepo.create({
+      name: orm.name,
+      email: orm.email,
+      surname: orm.surname,
+      password: await hashPassword(orm.password),
+    });
+    const saved = await this.userRepo.save(Cuser);
     return UserMapper.toDomain(saved);
   }
 
   async update(id: number, user: User): Promise<User> {
-    const existingUser = await this.findById(id);
-    if (!existingUser) {
-      throw new NotFoundException(`User with id ${id} not found`);
+    const ormEntity = UserMapper.toOrm(user);
+    await this.userRepo.update(id, ormEntity);
+    const updatedEntity = await this.userRepo.findOneBy({ id });
+    if (!updatedEntity) {
+      throw new Error(`User with ID ${id} not found`);
     }
-    const updatedOrm = UserMapper.toOrm(user);
-    updatedOrm.id = id;
-    const updated = await this.userRepo.save(updatedOrm);
-    return UserMapper.toDomain(updated);
+    return UserMapper.toDomain(updatedEntity);
   }
+
 
   async findById(id: number): Promise<User | null> {
     const user = await this.userRepo.findOne({ where: { id } });
@@ -44,18 +70,18 @@ export class UserRepositoryImpl implements UserRepository {
   }
 
   async hardDelete(id: number): Promise<void> {
-    const result = await this.userRepo.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
+    await this.userRepo.delete(id);
   }
 
   async softDelete(id: number): Promise<void> {
-    const user = await this.findById(id);
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
-    user.deletedAt = new Date(); // Set the deletedAt field
-    await this.userRepo.save(UserMapper.toOrm(user));
+    await this.userRepo.softDelete(id);
+  }
+
+  async searchByName(name: string): Promise<User[]> {
+    const users = await this.userRepo
+      .createQueryBuilder('user')
+      .where('user.name LIKE :name', { name: `%${name}%` })
+      .getMany();
+    return users.map(UserMapper.toDomain);
   }
 }

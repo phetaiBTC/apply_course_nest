@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from 'src/infrastructure/typeorm/user.orm-entity';
 import { UserController } from './interfaces/user.controller';
-import { CreateUserUseCase } from './application/use-cases/create-user.use-case';
+import { CreateUserUseCase } from './application/use-cases/command/create-user.use-case';
 import { UserRepositoryImpl } from './infrastructure/user.repository.impl';
+import { ListUserUseCase } from './application/use-cases/query/list-users.use-case';
+import { UpdateUserUseCase } from './application/use-cases/command/update-user.use-case';
 
 @Module({
     imports: [
@@ -12,6 +14,8 @@ import { UserRepositoryImpl } from './infrastructure/user.repository.impl';
     controllers: [UserController],
     providers: [
         CreateUserUseCase,
+        ListUserUseCase,
+        UpdateUserUseCase,
         {
             provide: 'UserRepository',
             useClass: UserRepositoryImpl,

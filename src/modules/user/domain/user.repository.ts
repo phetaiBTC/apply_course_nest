@@ -1,5 +1,7 @@
 
+import { PaginationQueryDto } from "src/shared/dto/pagination-query.dto";
 import { User } from "./user.entity";
+import { IpaginationQuery } from "src/shared/interface/pagination-interface";
 
 export interface UserRepository {
   create(user: User): Promise<User>;
@@ -8,5 +10,5 @@ export interface UserRepository {
   findByEmail(email: string): Promise<User | null>;
   hardDelete(id: number): Promise<void>;
   softDelete(id: number): Promise<void>;
-  findAll(): Promise<User[]>;
+  findAll(paginationQuery: PaginationQueryDto): Promise<IpaginationQuery<User[]>>;
 }

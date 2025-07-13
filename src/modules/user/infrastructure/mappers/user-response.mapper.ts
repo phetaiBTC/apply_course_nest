@@ -1,5 +1,6 @@
 import { formatTimeUtil } from "src/shared/utils/formatTime.util";
 import { User } from "../../domain/user.entity";
+import { IpaginationQuery } from "src/shared/interface/pagination-interface";
 export class UserResponseMapper {
     static toResponse(user: User) {
         return {
@@ -12,7 +13,10 @@ export class UserResponseMapper {
         };
     }
 
-    static toResponses(users: User[]) {
-        return users.map(this.toResponse);
+    static toResponses(users: User[],count?:number):IpaginationQuery<UserResponseMapper[]> {
+        return {
+            data: users.map(user => this.toResponse(user)),
+            count: count || users.length
+        }
     }
 }
