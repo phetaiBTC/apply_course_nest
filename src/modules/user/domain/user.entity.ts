@@ -9,8 +9,4 @@ export class User {
     public updatedAt?: Date,
     public deletedAt?: Date | null,
   ) { }
-
-  // changeName(newName: string) {
-  //   this.name = newName;
-  // }
 }

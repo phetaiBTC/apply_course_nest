@@ -12,7 +12,7 @@ export interface IUserResponse {
 }
 export class UserResponseMapper {
     static toResponse(user: User): IUserResponse {
-        console.log(user)
+        // console.log(user)
         return {
             id: user.id,
             email: user.email,

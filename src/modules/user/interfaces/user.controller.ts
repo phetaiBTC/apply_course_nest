@@ -14,13 +14,13 @@ export class UserController {
   ) { }
 
   @Post()
-  async create(@Body() dto: CreateUserDto): Promise<IUserResponse> {
+  async create(@Body() dto: CreateUserDto) {
     const user = await this.createUserUseCase.execute(dto);
     return UserResponseMapper.toResponse(user);
   }
 
   @Get()
-  async list(@Query() paginationQuery: PaginationQueryDto): Promise<IpaginationQuery<IUserResponse[]>> {
+  async list(@Query() paginationQuery: PaginationQueryDto) {
     const users = await this.ListUserUseCase.execute(paginationQuery);
     return UserResponseMapper.toResponses(users.data, users.count);
   }
