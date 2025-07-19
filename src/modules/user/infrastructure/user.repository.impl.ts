@@ -35,7 +35,7 @@ export class UserRepositoryImpl implements UserRepository {
 
   async create(user: User): Promise<User> {
     const orm = UserMapper.toOrm(user);
-    const Cuser = this.userRepo.create({
+    const Cuser = await this.userRepo.create({
       ...orm,
       password: await hashPassword(orm.password),
     });

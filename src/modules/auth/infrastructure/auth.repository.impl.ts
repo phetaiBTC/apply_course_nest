@@ -1,13 +1,15 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { AuthRepository } from "../domian/auth.repository";
-import { LoginUserDto } from "../application/dto/login-user.dto";
-import { JwtService } from "@nestjs/jwt";
+import { InjectRepository } from "@nestjs/typeorm";
+import { UserEntity } from "src/infrastructure/typeorm/user.orm-entity";
+import { Repository } from "typeorm";
 @Injectable()
 export class AuthRepositoryImpl implements AuthRepository {
-    constructor(private readonly jwtService: JwtService) { }
-    login(dto: LoginUserDto): Promise<{ token: string; }> {
-        const payload = { email: dto.email };
-        const token = this.jwtService.sign(payload);
-        return Promise.resolve({ token });
+    constructor(
+        @InjectRepository(UserEntity)
+        private readonly userRepo: Repository<UserEntity>,
+    ) { }
+    async verifyEmail(id: number): Promise<void> {
+        await this.userRepo.update(id, { is_verified: true });
     }
 }

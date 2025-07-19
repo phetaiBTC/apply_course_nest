@@ -24,6 +24,7 @@
     "db:seed": "ts-node -r tsconfig-paths/register ./src/database/seeders/data-seed.ts"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
@@ -39,9 +40,11 @@
     "dayjs": "^1.11.13",
     "dotenv": "^17.1.0",
     "mysql2": "^3.14.1",
+    "nodemailer": "^7.0.5",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
+    "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.25"

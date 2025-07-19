@@ -5,6 +5,7 @@ export class User {
     public email: string,
     public surname: string,
     public password: string,
+    public is_verified: boolean,
     public createdAt?: Date,
     public updatedAt?: Date,
     public deletedAt?: Date | null,

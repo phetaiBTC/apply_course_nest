@@ -7,6 +7,7 @@ import { UserRepositoryImpl } from './infrastructure/user.repository.impl';
 import { ListUserUseCase } from './application/use-cases/query/list-users.use-case';
 import { UpdateUserUseCase } from './application/use-cases/command/update-user.use-case';
 import { GetUserByEmailUseCase } from './application/use-cases/query/get-user-by-email.use-case';
+import { GetUserByIdUseCase } from './application/use-cases/query/get-user-by-id.use-case';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { GetUserByEmailUseCase } from './application/use-cases/query/get-user-by
     providers: [
         CreateUserUseCase,
         ListUserUseCase,
+        GetUserByIdUseCase,
         UpdateUserUseCase,
         GetUserByEmailUseCase,
         {

@@ -1,11 +1,10 @@
 // src/database/data-source.ts
 import 'dotenv/config';
 import { join } from 'path';
-import { UserEntity } from 'src/infrastructure/typeorm/user.orm-entity';
 import { DataSource } from 'typeorm';
 
 export const AppDataSource = new DataSource({
-  type: 'mysql',
+  type: 'postgres',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USERNAME,

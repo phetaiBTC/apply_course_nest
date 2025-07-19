@@ -7,6 +7,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guard/jwt.guard';
 import { StudentModule } from './modules/student/student.module';
 import { TransactionModule } from './infrastructure/transaction/transaction.module';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { TransactionModule } from './infrastructure/transaction/transaction.modu
     TransactionModule,
     UserModule,
     AuthModule,
-    StudentModule
+    StudentModule,
+    MailModule
   ],
   providers: [
     {

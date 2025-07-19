@@ -14,7 +14,7 @@ export class CreateUserUseCase {
     if (exist) {
       throw new Error('Email already exists');
     }
-    const user = new User(null, dto.name, dto.email, dto.surname, dto.password);
+    const user = new User(null, dto.name, dto.email, dto.surname, dto.password,false);
     return this.userRepository.create(user);
   }
 }

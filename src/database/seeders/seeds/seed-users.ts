@@ -14,18 +14,22 @@ export class UsersSeeder {
                 email: 'super_admin@gmail.com',
                 surname: 'super admin',
                 password: await hashPassword('super@1234'),
+                is_verified: true
             },
             {
                 name: 'admin',
                 email: 'admin@gmail.com',
                 surname: 'admin',
                 password: await hashPassword('admin@1234'),
+                is_verified: true
+
             },
             {
                 name: 'user',
                 email: 'user@gmail.com',
                 surname: 'user',
                 password: await hashPassword('user@1234'),
+                is_verified: true
             },
         ];
 

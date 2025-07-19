@@ -7,6 +7,10 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { AuthController } from "./interfaces/auth.controller";
 import { LoginUseCase } from "./application/use-cases/query/login.use-case";
 import { AuthRepositoryImpl } from "./infrastructure/auth.repository.impl";
+import { verify } from "crypto";
+import { VerifyEmailUseCase } from "./application/use-cases/command/verify-email.use-case";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { UserEntity } from "src/infrastructure/typeorm/user.orm-entity";
 
 @Module({
     imports: [
@@ -22,16 +26,20 @@ import { AuthRepositoryImpl } from "./infrastructure/auth.repository.impl";
                 signOptions: { expiresIn: configService.getOrThrow('JWT_EXPIRATION') },
             }),
         }),
+        TypeOrmModule.forFeature([UserEntity])
     ],
     controllers: [AuthController],
     providers: [
         JwtStrategy,
+        VerifyEmailUseCase,
         LoginUseCase,
         {
             provide: 'AuthRepository',
             useClass: AuthRepositoryImpl
         }
     ],
-    exports: []
+    exports: [
+        JwtModule
+    ]
 })
 export class AuthModule { }

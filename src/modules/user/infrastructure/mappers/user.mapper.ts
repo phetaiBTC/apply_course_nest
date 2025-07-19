@@ -10,6 +10,7 @@ export class UserMapper {
             orm.email,
             orm.surname,
             orm.password,
+            orm.is_verified,
             orm.createdAt,
             orm.updatedAt,
             orm.deletedAt,
@@ -22,6 +23,7 @@ export class UserMapper {
         orm.email = user.email;
         orm.surname = user.surname;
         orm.password = user.password;
+        orm.is_verified = user.is_verified;
         orm.createdAt = user.createdAt!;
         orm.updatedAt = user.updatedAt!;
         orm.deletedAt = user.deletedAt!;

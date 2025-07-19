@@ -22,6 +22,7 @@ export class UpdateUserUseCase {
             dto.email || existingUser.email,
             dto.surname || existingUser.surname,
             dto.password ? await bcrypt.hash(dto.password, 10) : existingUser.password,
+            existingUser.is_verified
         );
         return this.userRepository.update(id, updatedUser);
     }

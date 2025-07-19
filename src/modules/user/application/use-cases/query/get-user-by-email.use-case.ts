@@ -1,7 +1,7 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { User } from "src/modules/user/domain/user.entity";
 import { UserRepository } from "src/modules/user/domain/user.repository";
-
+@Injectable()
 export class GetUserByEmailUseCase {
     constructor(
         @Inject('UserRepository')
