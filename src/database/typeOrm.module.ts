@@ -16,7 +16,7 @@ import { DistrictsSeeder } from './seeders/seeds/seed-districts';
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
-                type: 'postgres',
+                type: 'mysql',
                 host: configService.getOrThrow('DB_HOST'),
                 port: configService.getOrThrow('DB_PORT'),
                 username: configService.getOrThrow('DB_USERNAME'),
