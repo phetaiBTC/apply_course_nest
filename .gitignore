@@ -2,7 +2,11 @@
 /dist
 /node_modules
 /build
-/migrations
+# compiled migrations
+dist/database/migrations/
+# หรือถ้าคุณ compile ลง src:
+src/database/migrations/*.ts
+src/database/migrations/*.ts.map
 # Logs
 logs
 *.log
