@@ -1,3 +1,5 @@
+import { Gender } from "src/infrastructure/typeorm/student.orm-entity";
+
 export class Student {
   constructor(
     public data:{
@@ -7,7 +9,7 @@ export class Student {
         surname: string,
         password: string,
         birth_date?: Date | null,
-        gender?: string | null,
+        gender?: Gender | null,
         districtId?: number | null,
         createdAt?: Date,
         updatedAt?: Date,

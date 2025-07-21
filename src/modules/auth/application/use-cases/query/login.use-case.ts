@@ -16,7 +16,7 @@ export class LoginUseCase {
   ) { }
   async execute(dto: LoginUserDto): Promise<{ token: string }> {
     const user = await this.getUserByEmailUseCase.execute(dto.email);
-    console.log(user);
+    // console.log(user);
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }

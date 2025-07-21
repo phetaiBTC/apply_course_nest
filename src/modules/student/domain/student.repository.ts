@@ -8,4 +8,5 @@ export interface StudentRepository {
     findById(id: number): Promise<Student | null>;
     findAll(paginationQuery: PaginationQueryDto): Promise<IpaginationQuery<Student[]>>;
     delete(id: number): Promise<{message: string}>;
+    update(id: number, student: Student): Promise<{message: string}>;
 }

@@ -108,6 +108,11 @@ export class StudentRepositoryImpl implements StudentRepository {
         return { message: 'done...!' };
     }
 
-
+    async update(id: number, student: Student): Promise<{ message: string }> {
+        const studentOrm = StudentMapper.toOrm(student);
+        console.log(studentOrm);
+        await this._studentRepo.update(id, studentOrm)
+        return { message: 'student updated' }
+    }
 
 }
