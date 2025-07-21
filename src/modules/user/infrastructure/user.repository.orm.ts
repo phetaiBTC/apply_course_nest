@@ -25,6 +25,7 @@ export class UserRepositoryOrm implements UserRepository {
                 kw: query.search,
                 field: 'email'
             },
+            is_active: query.is_active,
             page: Number(query.page) || 1,
             limit: Number(query.limit) || 10,
             toDomain: UserMapper.toDomain,

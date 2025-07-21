@@ -1,5 +1,5 @@
 import { SelectQueryBuilder } from "typeorm";
-import { GetType, sortType } from "../dto/paginationDto";
+import { GetType, sortType, Status } from "../dto/paginationDto";
 import { PaginatedResponse } from "../interface/pagination-response";
 
 
@@ -12,16 +12,23 @@ export async function fetchWithPagination<
     search?: { kw?: string, field: string },
     page: number,
     limit: number,
+    is_active?: Status,
     type?: GetType,
     toDomain: (entity: T) => U
 }): Promise<PaginatedResponse<U>> {
     if (query.search && query.search.kw) {
         query.qb.where(
-            `${query.qb.alias+"."+query.search.field} LIKE :kw`,
+            `${query.qb.alias + "." + query.search.field} LIKE :kw`,
             { kw: `%${query.search.kw}%` },
         );
     }
+    query.qb.withDeleted();
 
+    if (query.is_active === Status.ACTIVE) {
+        query.qb.andWhere(`${query.qb.alias}.deletedAt IS NULL`);
+    } else {
+        query.qb.andWhere(`${query.qb.alias}.deletedAt IS NOT NULL`);
+    }
     query.qb.orderBy(`${query.qb.alias}.createdAt`, query.sort || sortType.ASC);
     if (query.type === GetType.PAGE) {
         const [entities, total] = await query.qb.getManyAndCount();

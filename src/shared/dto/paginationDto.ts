@@ -1,5 +1,5 @@
-import { IsOptional, IsNumber, Min, IsString, IsEnum } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsOptional, IsNumber, Min, IsString, IsEnum, IsBoolean } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
 export enum GetType {
     ALL = 'all',
     PAGE = 'page'
@@ -8,7 +8,10 @@ export enum sortType {
   ASC = 'ASC',
   DESC = 'DESC',
 }
-
+export enum Status {
+    ACTIVE = 'active',
+    INACTIVE = 'inactive'
+}
 export class PaginationDto {
     @IsOptional()
     @Type(() => Number)
@@ -33,5 +36,9 @@ export class PaginationDto {
     @IsOptional()
     @IsEnum(sortType)
     sort?: sortType = sortType.ASC;
+
+    @IsEnum(Status)
+    @IsOptional()
+    is_active?: Status = Status.ACTIVE;
 
 }

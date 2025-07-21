@@ -14,6 +14,7 @@ export class UserController {
     ) { }
     @Get()
     async getAllUser(@Query() query: PaginationDto): Promise<PaginatedResponse<User>> {
+        console.log(query); 
         return await this.getAllUserUseCase.execute(query);
     }
 
