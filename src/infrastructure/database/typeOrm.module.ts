@@ -22,7 +22,7 @@ import { DistrictsSeeder } from './seeders/seeds/seed-districts';
                 username: configService.getOrThrow('DB_USERNAME'),
                 password: configService.getOrThrow('DB_PASSWORD'),
                 database: configService.getOrThrow('DB_NAME'),
-                entities: [join(__dirname, '..', 'infrastructure', 'typeorm', '**', '*.orm-entity.{js,ts}')],
+                entities: [join(__dirname,'..', 'typeorm', '**', '*.orm-entity.{js,ts}')],
                 synchronize: configService.getOrThrow('DB_SYNCHRONIZE') === 'true',
                 logging: configService.getOrThrow('DB_LOGGING') === 'true',
                 migrationsTableName: 'migrations',

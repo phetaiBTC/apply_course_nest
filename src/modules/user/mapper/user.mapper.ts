@@ -7,6 +7,7 @@ import { PermissionsEntity } from "src/infrastructure/typeorm/permissions.orm-en
 
 
 export class UserMapper {
+    
     static toDomain(entity: UserEntity): User {
         return new User({
             id: entity.id,
