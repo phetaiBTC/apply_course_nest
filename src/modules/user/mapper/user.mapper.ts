@@ -4,10 +4,12 @@ import { Role } from "src/modules/role/domain/role";
 import { Permission } from "src/modules/permission/domain/permission";
 import { RoleEntity } from "src/infrastructure/typeorm/role.orm-entity";
 import { PermissionsEntity } from "src/infrastructure/typeorm/permissions.orm-entity";
+import { formatTimeStamp } from "src/shared/utils/formatTime.util";
+import { IPagination } from "src/shared/interface/pagination-interface";
 
 
 export class UserMapper {
-    
+
     static toDomain(entity: UserEntity): User {
         return new User({
             id: entity.id,
@@ -18,6 +20,9 @@ export class UserMapper {
             is_verified: entity.is_verified,
             roles: entity.roles?.map(r => new Role({ id: r.id, name: r.name, display_name: r.display_name })) ?? [],
             permissions: entity.permissions?.map(p => new Permission({ id: p.id, name: p.name, display_name: p.display_name })) ?? [],
+            createdAt: entity.createdAt,
+            updatedAt: entity.updatedAt,
+            deletedAt: entity.deletedAt
         });
     }
 
@@ -43,6 +48,24 @@ export class UserMapper {
         });
 
         return entity;
+    }
+    static toResponse(domain: User) {
+        return {
+            id: domain.id,
+            name: domain.name,
+            surname: domain.surname,
+            email: domain.email,
+            is_verified: domain.is_verified,
+            roles: domain.roles,
+            permissions: domain.permissions,
+            ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt)
+        };
+    }
+    static toResponseList(users: User[], pagination: IPagination) {
+        return {
+            data: users.map(user => this.toResponse(user)),
+            pagination
+        };
     }
 }
 

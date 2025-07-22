@@ -3,13 +3,13 @@ import { User } from "src/modules/user/domain/user";
 import { UserRepository } from "src/modules/user/domain/user.repository";
 
 @Injectable()
-export class GetOneUserUseCase {
+export class GetUserByEmailUseCase {
     constructor(
         @Inject('UserRepository') private readonly userRepository: UserRepository
     ) { }
 
-    async execute(id:number): Promise<User> { 
-        const user = await this.userRepository.findOne(id);
+    async execute(email:string): Promise<User> {  
+        const user = await this.userRepository.findByEmail(email);
         if (!user) throw new NotFoundException('User not found');
         return user
     }

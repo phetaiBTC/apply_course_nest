@@ -1,4 +1,6 @@
-import { Gender } from "src/infrastructure/typeorm/teacher.orm-entity";// แยก enum ไว้ไฟล์อื่น
+
+import { Gender } from "src/infrastructure/typeorm/student.orm-entity";
+import { District } from "src/modules/district/domain/district";
 import { User } from 'src/modules/user/domain/user';
 
 export interface StudentProps {
@@ -7,8 +9,11 @@ export interface StudentProps {
   surname: string;
   birth_date?: Date;
   gender?: Gender;
-  user: User;
-  districtId?: number;
+  user?: User;
+  district?: District |null;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
 }
 
 export class Student {
@@ -17,8 +22,11 @@ export class Student {
   public surname: string;
   public birth_date?: Date;
   public gender?: Gender;
-  public user: User;
-  public districtId?: number;
+  public user?: User;
+  public district?: District |null;
+  public createdAt?: Date;
+  public updatedAt?: Date;
+  public deletedAt?: Date | null;
 
   constructor(props: StudentProps) {
     this.id = props.id;
@@ -27,6 +35,9 @@ export class Student {
     this.birth_date = props.birth_date;
     this.gender = props.gender;
     this.user = props.user;
-    this.districtId = props.districtId;
+    this.district = props.district ?? null;
+    this.createdAt = props.createdAt;
+    this.updatedAt = props.updatedAt;
+    this.deletedAt = props.deletedAt ?? null;
   }
 }

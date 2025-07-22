@@ -4,22 +4,24 @@ mkdir -p src/modules/province/application/use-cases/command \
          src/modules/province/application/dto \
          src/modules/province/domain \
          src/modules/province/mapper \
+         src/modules/province/interface \
          src/modules/province/infrastructure \
          src/modules/province/controller && \
 touch src/modules/province/application/dto/create-province.dto.ts \
       src/modules/province/domain/province.ts \
       src/modules/province/domain/province.repository.ts \
+      src/modules/province/interface/province.interface.ts \
       src/modules/province/infrastructure/province.repository.orm.ts \
       src/modules/province/mapper/province.mapper.ts \
       src/modules/province/controller/province.controller.ts \
       src/modules/province/province.module.ts
 
 // create crud
-touch src/modules/user/application/use-cases/command/create-user.use-case.ts \
-      src/modules/user/application/use-cases/query/get-all-user.use-case.ts \
-      src/modules/user/application/use-cases/query/get-one-user.use-case.ts \
-      src/modules/user/application/use-cases/command/hard-delete-user.use-case.ts \
-      src/modules/user/application/use-cases/command/soft-delete-user.use-case.ts \
-      src/modules/user/application/use-cases/command/restore-user.use-case.ts \
-      src/modules/user/application/use-cases/command/update-user.use-case.ts
+touch src/modules/student/application/use-cases/command/create-student.use-case.ts \
+      src/modules/student/application/use-cases/query/get-all-student.use-case.ts \
+      src/modules/student/application/use-cases/query/get-one-student.use-case.ts \
+      src/modules/student/application/use-cases/command/hard-delete-student.use-case.ts \
+      src/modules/student/application/use-cases/command/soft-delete-student.use-case.ts \
+      src/modules/student/application/use-cases/command/restore-student.use-case.ts \
+      src/modules/student/application/use-cases/command/update-student.use-case.ts
       

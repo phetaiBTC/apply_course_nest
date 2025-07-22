@@ -4,6 +4,9 @@ import { TypeOrmRepositoryModule } from './infrastructure/database/typeOrm.modul
 import { APP_GUARD } from '@nestjs/core';
 import { TransactionModule } from './infrastructure/transaction/transaction.module';
 import { UserModule } from './modules/user/user.module';
+import { StudentModule } from './modules/student/student.module';
+import { ProvinceModule } from './modules/province/province.module';
+import { DistrictModule } from './modules/district/district.module';
 
 @Module({
   imports: [
@@ -12,7 +15,10 @@ import { UserModule } from './modules/user/user.module';
     }),
     TypeOrmRepositoryModule,
     TransactionModule,
-    UserModule
+    UserModule,
+    StudentModule,
+    DistrictModule,
+    ProvinceModule
   ],
   providers: [],
 })

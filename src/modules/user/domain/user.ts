@@ -1,18 +1,11 @@
 import { Role } from "src/modules/role/domain/role";
 import { Permission } from 'src/modules/permission/domain/permission';
+import { UserProps } from "../interface/user.interface";
+import { hashPassword } from "src/shared/utils/bcrypt.util";
 
-export interface UserProps {
-  id?: number;
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  is_verified?: boolean;
-  roles?: Role[];
-  permissions?: Permission[];
-}
 
-export class User {
+
+export class User implements UserProps {
   public id?: number;
   public name: string;
   public surname: string;
@@ -21,6 +14,9 @@ export class User {
   public is_verified: boolean;
   public roles: Role[];
   public permissions: Permission[];
+  public createdAt?: Date;
+  public updatedAt?: Date;
+  public deletedAt?: Date | null;
 
   constructor(props: UserProps) {
     this.id = props.id;
@@ -31,8 +27,13 @@ export class User {
     this.is_verified = props.is_verified ?? false;
     this.roles = props.roles ?? [];
     this.permissions = props.permissions ?? [];
+    this.createdAt = props.createdAt;
+    this.updatedAt = props.updatedAt;
+    this.deletedAt = props.deletedAt ?? null;
   }
-
+  async changePassword(password: string) {
+    this.password = await hashPassword(password);
+  }
   verify() {
     this.is_verified = true;
   }

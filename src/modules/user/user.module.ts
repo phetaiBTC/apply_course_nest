@@ -5,6 +5,12 @@ import { CreateUserUseCase } from "./application/use-cases/command/create-user.u
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "src/infrastructure/typeorm/user.orm-entity";
 import { GetAllUserUseCase } from "./application/use-cases/query/get-all-user.use-case";
+import { GetOneUserUseCase } from "./application/use-cases/query/get-one-user.use-case";
+import { GetUserByEmailUseCase } from "./application/use-cases/query/get-by-email-use.case";
+import { HardDeleteUserUseCase } from "./application/use-cases/command/hard-delete-user.use-case";
+import { SoftDeleteUserUseCase } from "./application/use-cases/command/soft-delete-user.use-case";
+import { RestoreUserUseCase } from "./application/use-cases/command/restore-user.use-case";
+import { UpdateUserUseCase } from "./application/use-cases/command/update-user.use-case";
 
 @Module({
     imports: [TypeOrmModule.forFeature([UserEntity])],
@@ -15,8 +21,16 @@ import { GetAllUserUseCase } from "./application/use-cases/query/get-all-user.us
             useClass: UserRepositoryOrm
         },
         CreateUserUseCase,
-        GetAllUserUseCase
+        GetOneUserUseCase,
+        GetUserByEmailUseCase,
+        GetAllUserUseCase,
+        HardDeleteUserUseCase,
+        SoftDeleteUserUseCase,
+        RestoreUserUseCase,
+        UpdateUserUseCase
     ],
-    exports: []
+    exports: [
+        GetUserByEmailUseCase
+    ]
 })
 export class UserModule { }

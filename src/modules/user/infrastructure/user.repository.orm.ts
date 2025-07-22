@@ -32,10 +32,9 @@ export class UserRepositoryOrm implements UserRepository {
         });
     }
 
-    async findByEmail(email: string): Promise<User> {
+    async findByEmail(email: string): Promise<User|null> {
         const user = await this.userRepository.findOne({ where: { email: email } })
-        if (!user) throw new NotFoundException('User not found');
-        return UserMapper.toDomain(user);
+        return user ? UserMapper.toDomain(user) : null;
     }
 
     async save(user: User): Promise<User> {
@@ -44,16 +43,20 @@ export class UserRepositoryOrm implements UserRepository {
         return UserMapper.toDomain(savedEntity);
     }
 
-    async update(user: User): Promise<User> {
+    async update(id: number,user: User): Promise<User> {
         const userEntity = UserMapper.toOrm(user);
-        const savedEntity = await this.userRepository.save(userEntity);
-        return UserMapper.toDomain(savedEntity);
+        await this.userRepository.update(id, {
+            name: userEntity.name,
+            surname: userEntity.surname,
+            email: userEntity.email,
+            password: userEntity.password
+        });
+        return UserMapper.toDomain(userEntity);
     }
 
-    async findOne(id: number): Promise<User> {
+    async findOne(id: number): Promise<User|null> {
         const user = await this.userRepository.findOne({ where: { id: id } })
-        if (!user) throw new NotFoundException('User not found');
-        return UserMapper.toDomain(user);
+        return user ? UserMapper.toDomain(user) : null;
     }
 
     async hardDelete(id: number): Promise<{ message: string }> {
@@ -71,7 +74,7 @@ export class UserRepositoryOrm implements UserRepository {
     }
 
     async restore(id: number): Promise<{ message: string }> {
-        const user = await this.findOne(id);
+        const user = await this.userRepository.findOne({ where: { id }, withDeleted: true });
         if (!user) throw new NotFoundException('User not found');
         await this.userRepository.restore({ id: id });
         return { message: 'User restored' };
