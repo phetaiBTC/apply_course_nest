@@ -7,6 +7,7 @@ import { SeederService } from './seeders/seed.service';
 import { TransactionModule } from 'src/infrastructure/transaction/transaction.module';
 import { ProvincesSeeder } from './seeders/seeds/seed-provincs';
 import { DistrictsSeeder } from './seeders/seeds/seed-districts';
+import { PermissionSeeder } from './seeders/seeds/seed-permission';
 
 @Module({
     imports: [
@@ -29,6 +30,6 @@ import { DistrictsSeeder } from './seeders/seeds/seed-districts';
             }),
         })
     ],
-    providers:[UsersSeeder,SeederService,ProvincesSeeder,DistrictsSeeder]
+    providers:[UsersSeeder,SeederService,ProvincesSeeder,DistrictsSeeder,PermissionSeeder]
 })
 export class TypeOrmRepositoryModule { }

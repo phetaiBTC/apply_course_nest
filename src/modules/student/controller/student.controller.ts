@@ -12,6 +12,7 @@ import { UpdateStudentDto } from "../application/dto/update-student.dto";
 import { SoftDeleteStudentUseCase } from "../application/use-cases/command/soft-delete-student.use-case";
 import { HardDeleteStudentUseCase } from "../application/use-cases/command/hard-delete-student.use-case";
 import { RestoreStudentUseCase } from "../application/use-cases/command/restore-student.use-case";
+import { Permissions } from "src/shared/decorators/permissions.decorator";
 
 @Controller('student')
 export class StudentController {
@@ -29,12 +30,12 @@ export class StudentController {
     async create(@Body() student: CreateStudentDto){
         return await this.createStudentUseCase.execute(student);
     }
-
+    @Permissions('get_one_student')
     @Get(':id')
     async getOne(@Param('id') id: number){
         return StudentMapper.toResponse(await this.getOneStudentUseCase.execute(id));
     }
-
+    @Permissions('get_all_student')
     @Get()
     async getAll(@Query() query: PaginationDto): Promise<PaginatedResponse<StudentResponse>>{
         const students = await this.getAllStudentUseCase.execute(query);

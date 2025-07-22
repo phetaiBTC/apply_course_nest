@@ -18,6 +18,10 @@ export class UserRepositoryOrm implements UserRepository {
 
     async findAll(query: PaginationDto): Promise<PaginatedResponse<User>> {
         const qb = this.userRepository.createQueryBuilder('user');
+        qb
+        .leftJoinAndSelect('user.roles', 'roles')
+        .leftJoinAndSelect('roles.permissions', 'permissions')
+        .leftJoinAndSelect('user.permissions', 'user_permissions');
         return fetchWithPagination({
             qb,
             sort: query.sort,
@@ -33,7 +37,7 @@ export class UserRepositoryOrm implements UserRepository {
     }
 
     async findByEmail(email: string): Promise<User|null> {
-        const user = await this.userRepository.findOne({ where: { email: email } })
+        const user = await this.userRepository.findOne({ where: { email: email },relations: ['roles','roles.permissions','permissions'] });
         return user ? UserMapper.toDomain(user) : null;
     }
 
@@ -55,7 +59,7 @@ export class UserRepositoryOrm implements UserRepository {
     }
 
     async findOne(id: number): Promise<User|null> {
-        const user = await this.userRepository.findOne({ where: { id: id } })
+        const user = await this.userRepository.findOne({ where: { id: id },relations: ['roles','roles.permissions','permissions'] });
         return user ? UserMapper.toDomain(user) : null;
     }
 

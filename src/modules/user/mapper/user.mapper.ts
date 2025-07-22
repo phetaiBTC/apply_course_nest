@@ -18,7 +18,7 @@ export class UserMapper {
             email: entity.email,
             password: entity.password,
             is_verified: entity.is_verified,
-            roles: entity.roles?.map(r => new Role({ id: r.id, name: r.name, display_name: r.display_name })) ?? [],
+            roles: entity.roles?.map(r => new Role({ id: r.id, name: r.name, display_name: r.display_name, permissions: r.permissions })) ?? [],
             permissions: entity.permissions?.map(p => new Permission({ id: p.id, name: p.name, display_name: p.display_name })) ?? [],
             createdAt: entity.createdAt,
             updatedAt: entity.updatedAt,

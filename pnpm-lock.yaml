@@ -53,6 +53,9 @@ importers:
       dotenv:
         specifier: ^17.1.0
         version: 17.1.0
+      glob:
+        specifier: ^11.0.3
+        version: 11.0.3
       mysql2:
         specifier: ^3.14.1
         version: 3.14.1
@@ -105,6 +108,9 @@ importers:
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.3
+      '@types/glob':
+        specifier: ^9.0.0
+        version: 9.0.0
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -1157,6 +1163,10 @@ packages:
 
   '@types/express@5.0.3':
     resolution: {integrity: sha512-wGA0NX93b19/dZC1J18tKWVIYWyyF2ZjT9vin/NRu0qzzvfVzWjs04iq2rQ3H65vCTQYlRqs3YHfY7zjdV+9Kw==}
+
+  '@types/glob@9.0.0':
+    resolution: {integrity: sha512-00UxlRaIUvYm4R4W9WYkN8/J+kV8fmOQ7okeH6YFtGWFMt3odD45tpG5yA5wnL7HE6lLgjaTW5n14ju2hl2NNA==}
+    deprecated: This is a stub types definition. glob provides its own type definitions, so you do not need this installed.
 
   '@types/graceful-fs@4.1.9':
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
@@ -2457,6 +2467,11 @@ packages:
 
   glob@11.0.1:
     resolution: {integrity: sha512-zrQDm8XPnYEKawJScsnM0QzobJxlT/kHOOlRTio8IH/GrmxRE5fjllkzdaHclIuNjUQTJYH2xHNIGfdpJkDJUw==}
+    engines: {node: 20 || >=22}
+    hasBin: true
+
+  glob@11.0.3:
+    resolution: {integrity: sha512-2Nim7dha1KVkaiF4q6Dj+ngPPMdfvLJEOpZk/jKiUAkqKebpGAWQXAq9z1xu9HKu5lWfqw/FASuccEjyznjPaA==}
     engines: {node: 20 || >=22}
     hasBin: true
 
@@ -5647,6 +5662,10 @@ snapshots:
       '@types/express-serve-static-core': 5.0.7
       '@types/serve-static': 1.15.8
 
+  '@types/glob@9.0.0':
+    dependencies:
+      glob: 11.0.3
+
   '@types/graceful-fs@4.1.9':
     dependencies:
       '@types/node': 22.16.2
@@ -7175,6 +7194,15 @@ snapshots:
       path-scurry: 1.11.1
 
   glob@11.0.1:
+    dependencies:
+      foreground-child: 3.3.1
+      jackspeak: 4.1.1
+      minimatch: 10.0.3
+      minipass: 7.1.2
+      package-json-from-dist: 1.0.1
+      path-scurry: 2.0.0
+
+  glob@11.0.3:
     dependencies:
       foreground-child: 3.3.1
       jackspeak: 4.1.1

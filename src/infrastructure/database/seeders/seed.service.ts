@@ -6,6 +6,7 @@ import { TRANSACTION_MANAGER_SERVICE } from 'src/shared/constants/inject-key';
 import { UsersSeeder } from './seeds/seed-users';
 import { ProvincesSeeder } from './seeds/seed-provincs';
 import { DistrictsSeeder } from './seeds/seed-districts';
+import { PermissionSeeder } from './seeds/seed-permission';
 @Injectable()
 export class SeederService {
   constructor(
@@ -14,7 +15,8 @@ export class SeederService {
     private readonly transactionManagerService: ITransactionManager,
     @Inject() private _userSeeder: UsersSeeder,
     @Inject() private _provinceSeeder: ProvincesSeeder,
-    @Inject() private _districtSeeder: DistrictsSeeder
+    @Inject() private _districtSeeder: DistrictsSeeder,
+    @Inject() private _permissionSeeder: PermissionSeeder
   ) { }
 
   async seed() {
@@ -25,6 +27,7 @@ export class SeederService {
           await this._provinceSeeder.seed(manager);
           await this._districtSeeder.seed(manager);
           await this._userSeeder.seed(manager);
+          await this._permissionSeeder.seed(manager);
         },
       );
     } catch (error) {

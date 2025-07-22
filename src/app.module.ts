@@ -7,6 +7,9 @@ import { UserModule } from './modules/user/user.module';
 import { StudentModule } from './modules/student/student.module';
 import { ProvinceModule } from './modules/province/province.module';
 import { DistrictModule } from './modules/district/district.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { PermissionsGuard } from './shared/guards/permissions.guard';
+import { JwtAuthGuard } from './shared/guards/jwt.guard';
 
 @Module({
   imports: [
@@ -18,8 +21,18 @@ import { DistrictModule } from './modules/district/district.module';
     UserModule,
     StudentModule,
     DistrictModule,
+    AuthModule,
     ProvinceModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
+    },
+  ],
 })
 export class AppModule { }
