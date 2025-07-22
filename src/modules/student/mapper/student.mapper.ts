@@ -41,8 +41,10 @@ export class StudentMapper {
             email: domain.user!.email,
             birth_date: domain.birth_date ? formatTimeUtil(domain.birth_date) : null,
             gender: domain.gender ? domain.gender : null,
+            district_id: domain.district ? domain.district.id : null,
             district: domain.district ? domain.district.name : null,
             distinct_en: domain.district ? domain.district.name_en : null,
+            province_id: domain.district ? domain.district.province.id : null,
             province: domain.district ? domain.district.province.name : null,
             province_en: domain.district ? domain.district.province.name_en : null,
             ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt)

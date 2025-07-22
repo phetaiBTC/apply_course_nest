@@ -1,20 +1,20 @@
 // create module
-mkdir -p src/modules/province/application/use-cases/command \
-         src/modules/province/application/use-cases/query \
-         src/modules/province/application/dto \
-         src/modules/province/domain \
-         src/modules/province/mapper \
-         src/modules/province/interface \
-         src/modules/province/infrastructure \
-         src/modules/province/controller && \
-touch src/modules/province/application/dto/create-province.dto.ts \
-      src/modules/province/domain/province.ts \
-      src/modules/province/domain/province.repository.ts \
-      src/modules/province/interface/province.interface.ts \
-      src/modules/province/infrastructure/province.repository.orm.ts \
-      src/modules/province/mapper/province.mapper.ts \
-      src/modules/province/controller/province.controller.ts \
-      src/modules/province/province.module.ts
+mkdir -p src/modules/mail/application/use-cases/command \
+         src/modules/mail/application/use-cases/query \
+         src/modules/mail/application/dto \
+         src/modules/mail/domain \
+         src/modules/mail/mapper \
+         src/modules/mail/interface \
+         src/modules/mail/infrastructure \
+         src/modules/mail/controller && \
+touch src/modules/mail/application/dto/create-mail.dto.ts \
+      src/modules/mail/domain/mail.ts \
+      src/modules/mail/domain/mail.repository.ts \
+      src/modules/mail/interface/mail.interface.ts \
+      src/modules/mail/infrastructure/mail.repository.orm.ts \
+      src/modules/mail/mapper/mail.mapper.ts \
+      src/modules/mail/controller/mail.controller.ts \
+      src/modules/mail/mail.module.ts
 
 // create crud
 touch src/modules/student/application/use-cases/command/create-student.use-case.ts \
