@@ -13,15 +13,19 @@ import { TRANSACTION_MANAGER_SERVICE } from "src/shared/constants/inject-key";
 import { PaginationDto } from "src/shared/dto/paginationDto";
 import { PaginatedResponse } from "src/shared/interface/pagination-response";
 import { fetchWithPagination } from "src/shared/utils/pagination.builder";
+import { SendMail } from "src/modules/mail/application/use-cases/sendMail";
+import { JwtService } from "@nestjs/jwt";
 
 
 @Injectable()
 export class StudentRepositoryOrm implements StudentRepository {
     constructor(
+        private readonly jwtService: JwtService,
         @InjectDataSource() private readonly dataSource: DataSource,
         @Inject(TRANSACTION_MANAGER_SERVICE)
         private readonly transactionManagerService: ITransactionManager,
-        @InjectRepository(StudentEntity) private readonly studentRepository: Repository<StudentEntity>
+        @InjectRepository(StudentEntity) private readonly studentRepository: Repository<StudentEntity>,
+        private readonly sendMail: SendMail
     ) { }
 
     async save(student: Student, user: User): Promise<Student> {
@@ -35,8 +39,14 @@ export class StudentRepositoryOrm implements StudentRepository {
                         ...student,
                         user: UserMapper.toDomain(savedUser)
                     });
+                    const token = await this.jwtService.signAsync({
+                        email: user.email
+                    })
                     const savedStudent = manager.getRepository(StudentEntity).save(studentEntity);
                     const savedEntity = await savedStudent;
+                    await this.sendMail.execute(user.email, 'Bienvenido a la plataforma', 'Bienvenido a la plataforma',
+                        `http://localhost:3000/verify/${token}`
+                    );
                     return StudentMapper.toDomain(savedEntity);
                 },
             )

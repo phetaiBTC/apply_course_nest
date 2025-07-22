@@ -13,20 +13,23 @@ import { UserRepositoryOrm } from "../user/infrastructure/user.repository.orm";
 import { GetOneStudentUseCase } from "./application/use-cases/query/get-one-student.use-case";
 import { GetAllStudentUseCase } from "./application/use-cases/query/get-all-student.use-case";
 import { UpdateStudentUseCase } from "./application/use-cases/command/update-student.use-case";
-import { DistrictRepositoryOrm } from "../district/infrastructure/district.repository.orm";
 import { DistrictModule } from "../district/district.module";
 import { DistrictEntity } from "src/infrastructure/typeorm/district.orm-entity";
 import { HardDeleteStudentUseCase } from "./application/use-cases/command/hard-delete-student.use-case";
 import { SoftDeleteStudentUseCase } from "./application/use-cases/command/soft-delete-student.use-case";
 import { RestoreStudentUseCase } from "./application/use-cases/command/restore-student.use-case";
+import { MailModule } from "../mail/mail.module";
+import { AuthModule } from "../auth/auth.module";
 
 
 @Module({
     imports: [
+        AuthModule,
         TypeOrmModule.forFeature([StudentEntity, UserEntity, DistrictEntity]),
         TransactionModule,
         DistrictModule,
-        UserModule
+        UserModule,
+        MailModule
     ],
     controllers: [StudentController],
     providers: [

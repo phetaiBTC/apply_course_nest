@@ -14,7 +14,7 @@ export class LoginUseCase {
     async execute(dto: LoginDto): Promise<{ accessToken: string }> {
         const user = await this.userRepository.findByEmail(dto.email);
         if (!user) throw new BadRequestException('Invalid credentials');
-        if(user.is_verified) throw new BadRequestException('User is not verified');
+        if(!user.is_verified) throw new BadRequestException('User is not verified');
         const isPasswordValid = await comparePassword(dto.password, user.password);
         if (!isPasswordValid) throw new BadRequestException('Invalid credentials');
         const rolePermissions = user.roles.flatMap(role => role.permissions);

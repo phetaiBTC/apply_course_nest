@@ -31,6 +31,7 @@ import { UpdateUserUseCase } from "./application/use-cases/command/update-user.u
     ],
     exports: [
         GetUserByEmailUseCase,
+        CreateUserUseCase,
         {
             provide: 'UserRepository',
             useClass: UserRepositoryOrm

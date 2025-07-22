@@ -10,6 +10,7 @@ import { DistrictModule } from './modules/district/district.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PermissionsGuard } from './shared/guards/permissions.guard';
 import { JwtAuthGuard } from './shared/guards/jwt.guard';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { JwtAuthGuard } from './shared/guards/jwt.guard';
     StudentModule,
     DistrictModule,
     AuthModule,
-    ProvinceModule
+    ProvinceModule,
+    MailModule
   ],
   providers: [
     {
