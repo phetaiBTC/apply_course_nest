@@ -8,6 +8,8 @@ import { UserMapper } from "../mapper/user.mapper";
 import { PaginatedResponse } from "src/shared/interface/pagination-response";
 import { PaginationDto } from "src/shared/dto/paginationDto";
 import { fetchWithPagination } from "src/shared/utils/pagination.builder";
+import { RoleEntity } from "src/infrastructure/typeorm/role.orm-entity";
+import { PermissionsEntity } from "src/infrastructure/typeorm/permissions.orm-entity";
 
 @Injectable()
 export class UserRepositoryOrm implements UserRepository {
@@ -19,9 +21,9 @@ export class UserRepositoryOrm implements UserRepository {
     async findAll(query: PaginationDto): Promise<PaginatedResponse<User>> {
         const qb = this.userRepository.createQueryBuilder('user');
         qb
-        .leftJoinAndSelect('user.roles', 'roles')
-        .leftJoinAndSelect('roles.permissions', 'permissions')
-        .leftJoinAndSelect('user.permissions', 'user_permissions');
+            .leftJoinAndSelect('user.roles', 'roles')
+            .leftJoinAndSelect('roles.permissions', 'permissions')
+            .leftJoinAndSelect('user.permissions', 'user_permissions');
         return fetchWithPagination({
             qb,
             sort: query.sort,
@@ -36,8 +38,8 @@ export class UserRepositoryOrm implements UserRepository {
         });
     }
 
-    async findByEmail(email: string): Promise<User|null> {
-        const user = await this.userRepository.findOne({ where: { email: email },relations: ['roles','roles.permissions','permissions'] });
+    async findByEmail(email: string): Promise<User | null> {
+        const user = await this.userRepository.findOne({ where: { email: email }, relations: ['roles', 'roles.permissions', 'permissions'] });
         return user ? UserMapper.toDomain(user) : null;
     }
 
@@ -47,19 +49,25 @@ export class UserRepositoryOrm implements UserRepository {
         return UserMapper.toDomain(savedEntity);
     }
 
-    async update(id: number,user: User): Promise<User> {
-        const userEntity = UserMapper.toOrm(user);
-        await this.userRepository.update(id, {
-            name: userEntity.name,
-            surname: userEntity.surname,
-            email: userEntity.email,
-            password: userEntity.password
+    async update(id: number, user: User): Promise<User> {
+        // console.log(user);
+        const userEntity = await this.userRepository.findOne({
+            where: { id },
+            relations: ['roles', 'permissions'],
         });
-        return UserMapper.toDomain(userEntity);
+        if (!userEntity) throw new NotFoundException('User not found');
+        const updatedUser = UserMapper.toOrm(user);
+        
+        const updated = await this.userRepository.save({
+            ...userEntity,
+            ...updatedUser
+        });
+        return UserMapper.toDomain(updated);
     }
 
-    async findOne(id: number): Promise<User|null> {
-        const user = await this.userRepository.findOne({ where: { id: id },relations: ['roles','roles.permissions','permissions'] });
+
+    async findOne(id: number): Promise<User | null> {
+        const user = await this.userRepository.findOne({ where: { id: id }, relations: ['roles', 'roles.permissions', 'permissions'] });
         return user ? UserMapper.toDomain(user) : null;
     }
 

@@ -11,6 +11,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PermissionsGuard } from './shared/guards/permissions.guard';
 import { JwtAuthGuard } from './shared/guards/jwt.guard';
 import { MailModule } from './modules/mail/mail.module';
+import { RoleModule } from './modules/role/role.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MailModule } from './modules/mail/mail.module';
     DistrictModule,
     AuthModule,
     ProvinceModule,
+    RoleModule,
     MailModule
   ],
   providers: [

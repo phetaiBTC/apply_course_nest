@@ -38,11 +38,11 @@ export class User implements UserProps {
     this.is_verified = true;
   }
 
-  addRole(role: Role) {
-    this.roles.push(role);
+  addRole(role: Role[]) {
+    this.roles.push(...role);
   }
 
-  addPermission(permission: Permission) {
-    this.permissions.push(permission);
+  addPermission(permission: Permission[]) {
+    this.permissions.push(...permission);
   }
 }

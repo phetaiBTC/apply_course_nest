@@ -17,11 +17,11 @@ touch src/modules/mail/application/dto/create-mail.dto.ts \
       src/modules/mail/mail.module.ts
 
 // create crud
-touch src/modules/student/application/use-cases/command/create-student.use-case.ts \
-      src/modules/student/application/use-cases/query/get-all-student.use-case.ts \
-      src/modules/student/application/use-cases/query/get-one-student.use-case.ts \
-      src/modules/student/application/use-cases/command/hard-delete-student.use-case.ts \
-      src/modules/student/application/use-cases/command/soft-delete-student.use-case.ts \
-      src/modules/student/application/use-cases/command/restore-student.use-case.ts \
-      src/modules/student/application/use-cases/command/update-student.use-case.ts
+touch src/modules/role/application/use-cases/command/create-role.use-case.ts \
+      src/modules/role/application/use-cases/query/get-all-role.use-case.ts \
+      src/modules/role/application/use-cases/query/get-one-role.use-case.ts \
+      src/modules/role/application/use-cases/command/hard-delete-role.use-case.ts \
+      src/modules/role/application/use-cases/command/soft-delete-role.use-case.ts \
+      src/modules/role/application/use-cases/command/restore-role.use-case.ts \
+      src/modules/role/application/use-cases/command/update-role.use-case.ts
       

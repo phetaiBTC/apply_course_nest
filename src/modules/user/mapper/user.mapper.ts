@@ -6,6 +6,7 @@ import { RoleEntity } from "src/infrastructure/typeorm/role.orm-entity";
 import { PermissionsEntity } from "src/infrastructure/typeorm/permissions.orm-entity";
 import { formatTimeStamp } from "src/shared/utils/formatTime.util";
 import { IPagination } from "src/shared/interface/pagination-interface";
+import { permission } from "process";
 
 
 export class UserMapper {
@@ -18,8 +19,8 @@ export class UserMapper {
             email: entity.email,
             password: entity.password,
             is_verified: entity.is_verified,
-            roles: entity.roles?.map(r => new Role({ id: r.id, name: r.name, display_name: r.display_name, permissions: r.permissions })) ?? [],
-            permissions: entity.permissions?.map(p => new Permission({ id: p.id, name: p.name, display_name: p.display_name })) ?? [],
+            roles: entity.roles,
+            permissions: entity.permissions,
             createdAt: entity.createdAt,
             updatedAt: entity.updatedAt,
             deletedAt: entity.deletedAt
@@ -37,15 +38,17 @@ export class UserMapper {
 
         entity.roles = domain.roles.map(r => {
             const roleEntity = new RoleEntity();
-            if (r.id !== undefined) roleEntity.id = r.id;
+            roleEntity.id = r.id!;
             return roleEntity;
         });
 
         entity.permissions = domain.permissions.map(p => {
             const permissionEntity = new PermissionsEntity();
-            if (p.id !== undefined) permissionEntity.id = p.id;
+            permissionEntity.id = p.id!;
             return permissionEntity;
         });
+        // console.log(entity);
+
 
         return entity;
     }
@@ -56,8 +59,21 @@ export class UserMapper {
             surname: domain.surname,
             email: domain.email,
             is_verified: domain.is_verified,
-            roles: domain.roles,
-            permissions: domain.permissions,
+            roles: domain.roles ? domain.roles.map(r => ({
+                id: r.id,
+                name: r.name,
+                display_name: r.display_name,
+                permissions: r.permissions ? r.permissions.map(p => ({
+                    id: p.id,
+                    name: p.name || '',
+                    display_name: p.display_name || ''
+                })) : r.permissions
+            })) : domain.roles,
+            permissions: domain.permissions ? domain.permissions.map(p => ({
+                id: p.id,
+                name: p.name || '',
+                display_name: p.display_name || ''
+            })) : domain.permissions,
             ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt)
         };
     }
