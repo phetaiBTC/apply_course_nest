@@ -29,7 +29,7 @@ export class UserRepositoryOrm implements UserRepository {
             sort: query.sort,
             search: {
                 kw: query.search,
-                field: 'email'
+                field: 'user.name'
             },
             is_active: query.is_active,
             page: Number(query.page) || 1,

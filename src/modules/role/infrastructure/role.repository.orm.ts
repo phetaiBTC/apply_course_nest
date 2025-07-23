@@ -49,7 +49,7 @@ export class RoleRepositoryOrm implements RoleRepository {
             sort: query.sort,
             search: {
                 kw: query.search,
-                field: 'name'
+                field: 'role.name'
             },
             is_active: query.is_active,
             page: Number(query.page) || 1,

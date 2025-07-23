@@ -72,7 +72,7 @@ export class StudentRepositoryOrm implements StudentRepository {
             sort: query.sort,
             search: {
                 kw: query.search,
-                field: 'name'
+                field: 'student.name'
             },
             is_active: query.is_active,
             page: Number(query.page) || 1,

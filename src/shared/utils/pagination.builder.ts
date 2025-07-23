@@ -18,7 +18,7 @@ export async function fetchWithPagination<
 }): Promise<PaginatedResponse<U>> {
     if (query.search && query.search.kw) {
         query.qb.where(
-            `${query.qb.alias + "." + query.search.field} LIKE :kw`,
+            `${query.search.field} LIKE :kw`,
             { kw: `%${query.search.kw}%` },
         );
     }
