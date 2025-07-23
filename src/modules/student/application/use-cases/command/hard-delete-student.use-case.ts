@@ -8,8 +8,6 @@ export class HardDeleteStudentUseCase {
     ){}
 
     async execute(id: number){
-        const student = await this.studentRepository.findOne(id);
-        if (!student) throw new NotFoundException('Student not found');
         return await this.studentRepository.hardDelete(id);
     }
 }

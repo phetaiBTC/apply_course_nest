@@ -63,6 +63,7 @@ export class StudentRepositoryOrm implements StudentRepository {
     async findAll(query: PaginationDto): Promise<PaginatedResponse<Student>> {
         const qb = this.studentRepository.createQueryBuilder('student');
         qb
+            .withDeleted()
             .leftJoinAndSelect('student.user', 'user')
             .leftJoinAndSelect('student.district', 'district')
             .leftJoinAndSelect('district.province', 'province');
@@ -92,7 +93,8 @@ export class StudentRepositoryOrm implements StudentRepository {
                     userDomain.surname = student.surname || userDomain.surname;
                     await manager.getRepository(StudentEntity).update({ id: id }, StudentMapper.toOrm({
                         ...student,
-                        user: UserMapper.toDomain(isStudentExists.user)}));
+                        user: UserMapper.toDomain(isStudentExists.user)
+                    }));
                     await manager.getRepository(UserEntity).save(UserMapper.toOrm(userDomain));
                     const studentEntity = await manager.getRepository(StudentEntity).findOne({ where: { id: id }, relations: ['user', 'district', 'district.province'] });
                     return StudentMapper.toDomain(studentEntity!);
@@ -104,20 +106,57 @@ export class StudentRepositoryOrm implements StudentRepository {
         }
     }
 
-      async hardDelete(id: number): Promise<{ message: string }> {
-        await this.studentRepository.delete({ id: id });
-        return { message: 'User deleted' };
+    async hardDelete(id: number): Promise<{ message: string }> {
+        try {
+            const result = await this.transactionManagerService.runInTransaction(
+                this.dataSource,
+                async (manager) => {
+                    const isStudentExists = await manager.getRepository(StudentEntity).findOne({ where: { id: id }, relations: ['user'] , withDeleted: true});
+                    if (!isStudentExists) throw new NotFoundException('Student not found');
+                    await manager.getRepository(StudentEntity).delete({ id: id });
+                    await manager.getRepository(UserEntity).delete({ id: isStudentExists.user.id });
+                    return { message: 'User deleted' }
+                },
+            )
+            return result
+        } catch (e) {
+            throw e
+        }
     }
 
     async softDelete(id: number): Promise<{ message: string }> {
-        await this.studentRepository.softDelete({ id: id });
-        return { message: 'User deleted' };
+        try {
+            const result = await this.transactionManagerService.runInTransaction(
+                this.dataSource,
+                async (manager) => {
+                    const isStudentExists = await manager.getRepository(StudentEntity).findOne({ where: { id: id }, relations: ['user'] });
+                    if (!isStudentExists) throw new NotFoundException('Student not found');
+                    await manager.getRepository(StudentEntity).softDelete({ id: id });
+                    await manager.getRepository(UserEntity).softDelete({ id: isStudentExists.user.id });
+                    return { message: 'User deleted' }
+                },
+            )
+            return result
+        } catch (e) {
+            throw e
+        }
     }
 
     async restore(id: number): Promise<{ message: string }> {
-        const user = await this.studentRepository.findOne({ where: { id }, withDeleted: true });
-        if (!user) throw new NotFoundException('User not found');
-        await this.studentRepository.restore({ id: id });
-        return { message: 'User restored' };
+        try {
+            const result = await this.transactionManagerService.runInTransaction(
+                this.dataSource,
+                async (manager) => {
+                    const isStudentExists = await manager.getRepository(StudentEntity).findOne({ where: { id: id }, withDeleted: true, relations: ['user'] });
+                    if (!isStudentExists) throw new NotFoundException('Student not found');
+                    await manager.getRepository(StudentEntity).restore({ id: id });
+                    await manager.getRepository(UserEntity).restore({ id: isStudentExists.user.id });
+                    return { message: 'User restored' };
+                },
+            )
+            return result
+        } catch (e) {
+            throw e
+        }
     }
 }

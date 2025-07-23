@@ -22,7 +22,7 @@ export async function fetchWithPagination<
             { kw: `%${query.search.kw}%` },
         );
     }
-    query.qb.withDeleted();
+    // query.qb.withDeleted();
 
     if (query.is_active === Status.ACTIVE) {
         query.qb.andWhere(`${query.qb.alias}.deletedAt IS NULL`);

@@ -12,6 +12,7 @@ import { PermissionsGuard } from './shared/guards/permissions.guard';
 import { JwtAuthGuard } from './shared/guards/jwt.guard';
 import { MailModule } from './modules/mail/mail.module';
 import { RoleModule } from './modules/role/role.module';
+import { TeacherModule } from './modules/teacher/teacher.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RoleModule } from './modules/role/role.module';
     StudentModule,
     DistrictModule,
     AuthModule,
+    TeacherModule,
     ProvinceModule,
     RoleModule,
     MailModule

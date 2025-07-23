@@ -1,8 +1,6 @@
 import { PrimaryGeneratedColumn, Column, Entity, ManyToOne, OneToOne, JoinColumn, OneToMany } from "typeorm";
-import { DistrictEntity } from "./district.orm-entity";
 import { SharedBaseEntity } from "src/shared/base/baseEntity";
 import { UserEntity } from "./user.orm-entity";
-import { StudentEducationsEntity } from "./student_educations.orm-entity";
 import { CoursesEntity } from "./courses.orm-entity";
 export enum Gender {
     MALE = 'male',

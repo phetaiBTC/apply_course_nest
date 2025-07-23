@@ -13,6 +13,7 @@ import { SoftDeleteStudentUseCase } from "../application/use-cases/command/soft-
 import { HardDeleteStudentUseCase } from "../application/use-cases/command/hard-delete-student.use-case";
 import { RestoreStudentUseCase } from "../application/use-cases/command/restore-student.use-case";
 import { Permissions } from "src/shared/decorators/permissions.decorator";
+import { Public } from "src/shared/decorators/auth.decorator";
 
 @Controller('student')
 export class StudentController {
@@ -25,17 +26,17 @@ export class StudentController {
         private readonly hardDeleteStudentUseCase: HardDeleteStudentUseCase,
         private readonly restoreStudentUseCase: RestoreStudentUseCase
     ){}
-
+    @Public()
     @Post()
     async create(@Body() student: CreateStudentDto){
         return await this.createStudentUseCase.execute(student);
     }
-    @Permissions('get_one_student')
+    // @Permissions('get_one_student')
     @Get(':id')
     async getOne(@Param('id') id: number){
         return StudentMapper.toResponse(await this.getOneStudentUseCase.execute(id));
     }
-    @Permissions('get_all_student')
+    // @Permissions('get_all_student')
     @Get()
     async getAll(@Query() query: PaginationDto): Promise<PaginatedResponse<StudentResponse>>{
         const students = await this.getAllStudentUseCase.execute(query);
