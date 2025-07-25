@@ -6,13 +6,13 @@ import { glob } from 'glob';
 
 @Injectable()
 export class PermissionSeeder {
-  constructor() {}
+  constructor() { }
 
   async seed(manager: EntityManager) {
     const repository = manager.getRepository(PermissionsEntity);
 
-    const baseDir = path.resolve('src/modules');
-    const pattern = path.join(baseDir, '**/application/use-cases/**/**/*.use-case.ts');
+    const baseDir = 'src/modules';
+    const pattern = `${baseDir}/**/application/use-cases/**/*.use-case.ts`;
     const files = await glob.sync(pattern);
 
     const permissionNames: Set<string> = new Set();

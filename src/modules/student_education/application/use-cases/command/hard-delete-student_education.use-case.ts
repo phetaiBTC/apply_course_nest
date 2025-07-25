@@ -4,7 +4,7 @@ import { Student_educationRepository } from "src/modules/student_education/domai
 @Injectable()
 export class HardDeleteEducationUseCase {
     constructor(@Inject('Student_educationRepository') private readonly educationRepository: Student_educationRepository) { }
-    execute(id:number) {
-        // return this.educationRepository.hardDelete(dto.id)
+    execute(id: number) {
+        // return this.educationRepository.hardDelete(id)
     }
 }
