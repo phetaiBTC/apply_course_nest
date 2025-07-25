@@ -15,6 +15,7 @@ import { RoleModule } from './modules/role/role.module';
 import { TeacherModule } from './modules/teacher/teacher.module';
 import { StudentEducationModule } from './modules/student_education/student_education.module';
 import { PermissionModule } from './modules/permission/permission.module';
+import { CourseCategoryModule } from './modules/course_category/course_category.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { PermissionModule } from './modules/permission/permission.module';
     RoleModule,
     MailModule,
     StudentEducationModule,
-    PermissionModule
+    PermissionModule,
+    CourseCategoryModule
   ],
   providers: [
     {
