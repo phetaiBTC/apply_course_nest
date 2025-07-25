@@ -14,6 +14,7 @@ import { MailModule } from './modules/mail/mail.module';
 import { RoleModule } from './modules/role/role.module';
 import { TeacherModule } from './modules/teacher/teacher.module';
 import { StudentEducationModule } from './modules/student_education/student_education.module';
+import { PermissionModule } from './modules/permission/permission.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { StudentEducationModule } from './modules/student_education/student_educ
     ProvinceModule,
     RoleModule,
     MailModule,
-    StudentEducationModule
+    StudentEducationModule,
+    PermissionModule
   ],
   providers: [
     {

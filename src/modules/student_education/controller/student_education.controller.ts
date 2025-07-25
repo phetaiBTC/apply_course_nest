@@ -12,7 +12,6 @@ export class StudentEducationController {
     getAll(@Query() query: PaginationDto) {
 
     }
-
     @Post()
     create(@Body() dto: CreateEducationDto) {
         return this.createEducationUseCase.execute(dto)
