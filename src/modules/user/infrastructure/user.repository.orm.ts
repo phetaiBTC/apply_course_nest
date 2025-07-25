@@ -21,6 +21,7 @@ export class UserRepositoryOrm implements UserRepository {
     async findAll(query: PaginationDto): Promise<PaginatedResponse<User>> {
         const qb = this.userRepository.createQueryBuilder('user');
         qb
+            .withDeleted()
             .leftJoinAndSelect('user.roles', 'roles')
             .leftJoinAndSelect('roles.permissions', 'permissions')
             .leftJoinAndSelect('user.permissions', 'user_permissions');
