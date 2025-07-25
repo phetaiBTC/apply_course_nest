@@ -1,27 +1,27 @@
 // create module
-mkdir -p src/modules/mail/application/use-cases/command \
-         src/modules/mail/application/use-cases/query \
-         src/modules/mail/application/dto \
-         src/modules/mail/domain \
-         src/modules/mail/mapper \
-         src/modules/mail/interface \
-         src/modules/mail/infrastructure \
-         src/modules/mail/controller && \
-touch src/modules/mail/application/dto/create-mail.dto.ts \
-      src/modules/mail/domain/mail.ts \
-      src/modules/mail/domain/mail.repository.ts \
-      src/modules/mail/interface/mail.interface.ts \
-      src/modules/mail/infrastructure/mail.repository.orm.ts \
-      src/modules/mail/mapper/mail.mapper.ts \
-      src/modules/mail/controller/mail.controller.ts \
-      src/modules/mail/mail.module.ts
+mkdir -p src/modules/student_education/application/use-cases/command \
+         src/modules/student_education/application/use-cases/query \
+         src/modules/student_education/application/dto \
+         src/modules/student_education/domain \
+         src/modules/student_education/mapper \
+         src/modules/student_education/interface \
+         src/modules/student_education/infrastructure \
+         src/modules/student_education/controller && \
+touch src/modules/student_education/application/dto/create-student_education.dto.ts \
+      src/modules/student_education/domain/student_education.ts \
+      src/modules/student_education/domain/student_education.repository.ts \
+      src/modules/student_education/interface/student_education.interface.ts \
+      src/modules/student_education/infrastructure/student_education.repository.orm.ts \
+      src/modules/student_education/mapper/student_education.mapper.ts \
+      src/modules/student_education/controller/student_education.controller.ts \
+      src/modules/student_education/student_education.module.ts
 
 // create crud
-touch src/modules/role/application/use-cases/command/create-role.use-case.ts \
-      src/modules/role/application/use-cases/query/get-all-role.use-case.ts \
-      src/modules/role/application/use-cases/query/get-one-role.use-case.ts \
-      src/modules/role/application/use-cases/command/hard-delete-role.use-case.ts \
-      src/modules/role/application/use-cases/command/soft-delete-role.use-case.ts \
-      src/modules/role/application/use-cases/command/restore-role.use-case.ts \
-      src/modules/role/application/use-cases/command/update-role.use-case.ts
+touch src/modules/student_education/application/use-cases/command/create-student_education.use-case.ts \
+      src/modules/student_education/application/use-cases/query/get-all-student_education.use-case.ts \
+      src/modules/student_education/application/use-cases/query/get-one-student_education.use-case.ts \
+      src/modules/student_education/application/use-cases/command/hard-delete-student_education.use-case.ts \
+      src/modules/student_education/application/use-cases/command/soft-delete-student_education.use-case.ts \
+      src/modules/student_education/application/use-cases/command/restore-student_education.use-case.ts \
+      src/modules/student_education/application/use-cases/command/update-student_education.use-case.ts
       

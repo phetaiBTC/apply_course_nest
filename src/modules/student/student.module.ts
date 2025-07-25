@@ -53,6 +53,12 @@ import { AuthModule } from "../auth/auth.module";
         RestoreStudentUseCase,
         UpdateStudentUseCase
     ],
-    exports: []
+    exports: [
+        {
+            provide: 'StudentRepository',
+            useClass: StudentRepositoryOrm
+        },
+        GetOneStudentUseCase
+    ]
 })
 export class StudentModule { }

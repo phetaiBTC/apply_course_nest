@@ -13,6 +13,7 @@ import { JwtAuthGuard } from './shared/guards/jwt.guard';
 import { MailModule } from './modules/mail/mail.module';
 import { RoleModule } from './modules/role/role.module';
 import { TeacherModule } from './modules/teacher/teacher.module';
+import { StudentEducationModule } from './modules/student_education/student_education.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { TeacherModule } from './modules/teacher/teacher.module';
     TeacherModule,
     ProvinceModule,
     RoleModule,
-    MailModule
+    MailModule,
+    StudentEducationModule
   ],
   providers: [
     {
