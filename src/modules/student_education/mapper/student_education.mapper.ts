@@ -2,9 +2,11 @@ import { StudentEducationsEntity } from "src/infrastructure/typeorm/student_educ
 import { Student_education } from "../domain/student_education";
 import { Student } from "src/modules/student/domain/student";
 import { StudentMapper } from "src/modules/student/mapper/student.mapper";
+import { formatTimeStamp } from "src/shared/utils/formatTime.util";
 
 export class Student_educationMapper {
     static toDomain(entity: StudentEducationsEntity): Student_education {
+        // console.log(entity);
         return new Student_education({
             id: entity.id,
             level: entity.level,
@@ -25,5 +27,17 @@ export class Student_educationMapper {
         entity.status = domain.status
         entity.student_id = StudentMapper.toOrm(domain.student_id)
         return entity
+    }
+
+    static toResponse(domain: Student_education) {
+        return {
+            id: domain.id,
+            level: domain.level,
+            field_of_study: domain.field_of_study,
+            current_occupation: domain.current_occupation,
+            work_experience: domain.work_experience,
+            status: domain.status,
+            ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt),
+        }
     }
 }

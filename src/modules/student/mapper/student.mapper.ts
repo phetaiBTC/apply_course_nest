@@ -4,6 +4,7 @@ import { Student } from "../domain/student";
 import { StudentEntity } from "src/infrastructure/typeorm/student.orm-entity";
 import { UserMapper } from "src/modules/user/mapper/user.mapper";
 import { DistrictMapper } from "src/modules/district/mapper/district.mapper";
+import { Student_educationMapper } from "src/modules/student_education/mapper/student_education.mapper";
 
 export class StudentMapper {
 
@@ -16,6 +17,7 @@ export class StudentMapper {
             gender: entity.gender,
             user: UserMapper.toDomain(entity.user),
             district: entity.district ? DistrictMapper.toDomain(entity.district) : null,
+            educations: entity.educations ? entity.educations.map((education) => Student_educationMapper.toDomain(education)) : [],
             createdAt: entity.createdAt,
             updatedAt: entity.updatedAt,
             deletedAt: entity.deletedAt
@@ -34,6 +36,7 @@ export class StudentMapper {
         return entity;
     }
     static toResponse(domain: Student) {
+        console.log(domain);
         return {
             id: domain.id!,
             name: domain.name,
@@ -47,6 +50,7 @@ export class StudentMapper {
             province_id: domain.district ? domain.district.province.id : null,
             province: domain.district ? domain.district.province.name : null,
             province_en: domain.district ? domain.district.province.name_en : null,
+            educations: domain.educations ? domain.educations.map((education) => Student_educationMapper.toResponse(education)) : [],
             ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt)
         };
     }

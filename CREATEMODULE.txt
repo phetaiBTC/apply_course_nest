@@ -1,27 +1,27 @@
 // create module
-mkdir -p src/modules/course_category/application/use-cases/command \
-         src/modules/course_category/application/use-cases/query \
-         src/modules/course_category/application/dto \
-         src/modules/course_category/domain \
-         src/modules/course_category/mapper \
-         src/modules/course_category/interface \
-         src/modules/course_category/infrastructure \
-         src/modules/course_category/controller && \
-touch src/modules/course_category/application/dto/create-course_category.dto.ts \
-      src/modules/course_category/domain/course_category.ts \
-      src/modules/course_category/domain/course_category.repository.ts \
-      src/modules/course_category/interface/course_category.interface.ts \
-      src/modules/course_category/infrastructure/course_category.repository.orm.ts \
-      src/modules/course_category/mapper/course_category.mapper.ts \
-      src/modules/course_category/controller/course_category.controller.ts \
-      src/modules/course_category/course_category.module.ts
+mkdir -p src/modules/course/application/use-cases/command \
+         src/modules/course/application/use-cases/query \
+         src/modules/course/application/dto \
+         src/modules/course/domain \
+         src/modules/course/mapper \
+         src/modules/course/interface \
+         src/modules/course/infrastructure \
+         src/modules/course/controller && \
+touch src/modules/course/application/dto/create-course.dto.ts \
+      src/modules/course/domain/course.ts \
+      src/modules/course/domain/course.repository.ts \
+      src/modules/course/interface/course.interface.ts \
+      src/modules/course/infrastructure/course.repository.orm.ts \
+      src/modules/course/mapper/course.mapper.ts \
+      src/modules/course/controller/course.controller.ts \
+      src/modules/course/course.module.ts
 
 // create crud
-touch src/modules/course_category/application/use-cases/command/create-course_category.use-case.ts \
-      src/modules/course_category/application/use-cases/query/get-all-course_category.use-case.ts \
-      src/modules/course_category/application/use-cases/query/get-one-course_category.use-case.ts \
-      src/modules/course_category/application/use-cases/command/hard-delete-course_category.use-case.ts \
-      src/modules/course_category/application/use-cases/command/soft-delete-course_category.use-case.ts \
-      src/modules/course_category/application/use-cases/command/restore-course_category.use-case.ts \
-      src/modules/course_category/application/use-cases/command/update-course_category.use-case.ts
+touch src/modules/course/application/use-cases/command/create-course.use-case.ts \
+      src/modules/course/application/use-cases/query/get-all-course.use-case.ts \
+      src/modules/course/application/use-cases/query/get-one-course.use-case.ts \
+      src/modules/course/application/use-cases/command/hard-delete-course.use-case.ts \
+      src/modules/course/application/use-cases/command/soft-delete-course.use-case.ts \
+      src/modules/course/application/use-cases/command/restore-course.use-case.ts \
+      src/modules/course/application/use-cases/command/update-course.use-case.ts
       

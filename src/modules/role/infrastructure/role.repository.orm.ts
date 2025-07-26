@@ -43,7 +43,8 @@ export class RoleRepositoryOrm implements RoleRepository {
 
     async findAll(query: PaginationDto): Promise<PaginatedResponse<Role>>{
         const qb = this.roleRepository.createQueryBuilder('role');
-        qb.leftJoinAndSelect('role.permissions', 'permissions');
+
+        qb.withDeleted().leftJoinAndSelect('role.permissions', 'permissions');
         return fetchWithPagination({
             qb,
             sort: query.sort,

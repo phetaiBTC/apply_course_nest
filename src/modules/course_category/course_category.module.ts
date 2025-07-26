@@ -25,7 +25,7 @@ import { GetAllCourseCategoryUseCase } from "./application/use-cases/query/get-a
         HardDeleteCourseCategoryUseCase,
         SoftDeleteCourseCategoryUseCase,
         GetOneCourseCategoryUseCase,
-        GetAllCourseCategoryUseCase
+        GetAllCourseCategoryUseCase 
     ],
     exports: []
 })

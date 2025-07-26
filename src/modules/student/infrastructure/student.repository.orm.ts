@@ -56,7 +56,8 @@ export class StudentRepositoryOrm implements StudentRepository {
         }
     }
     async findOne(id: number): Promise<Student | null> {
-        const student = await this.studentRepository.findOne({ where: { id: id }, relations: ['user', 'district', 'district.province'] });
+        const student = await this.studentRepository.findOne({ where: { id: id }, relations: ['user', 'district', 'district.province', 'educations', 'educations.student_id','educations.student_id.user'] });
+        // console.log(student);
         return student ? StudentMapper.toDomain(student) : null;
     }
 
@@ -65,8 +66,11 @@ export class StudentRepositoryOrm implements StudentRepository {
         qb
             .withDeleted()
             .leftJoinAndSelect('student.user', 'user')
+            .leftJoinAndSelect('student.educations', 'educations')
+            .leftJoinAndSelect('educations.student_id', 'student_id')
+            .leftJoinAndSelect('student_id.user', 'user_id')
             .leftJoinAndSelect('student.district', 'district')
-            .leftJoinAndSelect('district.province', 'province');
+            .leftJoinAndSelect('district.province', 'province')
         return fetchWithPagination({
             qb,
             sort: query.sort,
@@ -111,7 +115,7 @@ export class StudentRepositoryOrm implements StudentRepository {
             const result = await this.transactionManagerService.runInTransaction(
                 this.dataSource,
                 async (manager) => {
-                    const isStudentExists = await manager.getRepository(StudentEntity).findOne({ where: { id: id }, relations: ['user'] , withDeleted: true});
+                    const isStudentExists = await manager.getRepository(StudentEntity).findOne({ where: { id: id }, relations: ['user'], withDeleted: true });
                     if (!isStudentExists) throw new NotFoundException('Student not found');
                     await manager.getRepository(StudentEntity).delete({ id: id });
                     await manager.getRepository(UserEntity).delete({ id: isStudentExists.user.id });

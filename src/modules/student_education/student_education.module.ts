@@ -5,6 +5,9 @@ import { CreateEducationUseCase } from "./application/use-cases/command/create-s
 import { Student_educationRepositoryOrm } from "./infrastructure/student_education.repository.orm";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { StudentEducationsEntity } from "src/infrastructure/typeorm/student_educations.orm-entity";
+import { GetOneEducationUseCase } from "./application/use-cases/query/get-one-student_education.use-case";
+import { UpdateEducationUseCase } from "./application/use-cases/command/update-student_education.use-case";
+import { HardDeleteEducationUseCase } from "./application/use-cases/command/hard-delete-student_education.use-case";
 
 @Module({
     imports: [StudentModule,TypeOrmModule.forFeature([
@@ -16,7 +19,10 @@ import { StudentEducationsEntity } from "src/infrastructure/typeorm/student_educ
             provide:'Student_educationRepository',
             useClass:Student_educationRepositoryOrm
         },
-        CreateEducationUseCase
+        CreateEducationUseCase,
+        GetOneEducationUseCase,
+        UpdateEducationUseCase,
+        HardDeleteEducationUseCase
     ],
     exports: []
 })

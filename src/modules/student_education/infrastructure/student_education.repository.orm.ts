@@ -19,4 +19,20 @@ export class Student_educationRepositoryOrm implements Student_educationReposito
         return Student_educationMapper.toDomain(educationCreate)
     }
 
+    async findOne(id: number): Promise<Student_education | null> {
+        const educatioOrm = await this.educationRepository.findOne({ where: { id: id }, relations: ['student_id', 'student_id.user'] });
+        return educatioOrm ? Student_educationMapper.toDomain(educatioOrm) : null
+    }
+
+    async update(id: number, Student: Student_education): Promise<Student_education> {
+        const educatioOrm = Student_educationMapper.toOrm(Student)
+        await this.educationRepository.update({ id: id }, educatioOrm)
+        return Student
+    }
+
+    async hardDelete(id: number): Promise<{ message: string; }> {
+        await this.educationRepository.delete({ id: id })
+        return { message: 'education deleted' }
+    }
+
 }

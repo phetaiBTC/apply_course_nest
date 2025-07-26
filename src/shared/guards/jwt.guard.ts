@@ -8,7 +8,7 @@ import { ConfigService } from "@nestjs/config";
 export class JwtAuthGuard implements CanActivate {
   constructor(private jwtService: JwtService, private reflector: Reflector,
     private readonly configService: ConfigService
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
@@ -32,16 +32,16 @@ export class JwtAuthGuard implements CanActivate {
 
       request['user'] = payload;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token_expired');
     }
     return true;
   }
 
   private extractTokenFromHeader(request: any): string | undefined {
-  const authHeader = request.headers['authorization'] || request.headers['Authorization'];
-  if (!authHeader) return undefined;
-  const [type, token] = authHeader.split(' ');
-  return type === 'Bearer' ? token : undefined;
-}
+    const authHeader = request.headers['authorization'] || request.headers['Authorization'];
+    if (!authHeader) return undefined;
+    const [type, token] = authHeader.split(' ');
+    return type === 'Bearer' ? token : undefined;
+  }
 
 }

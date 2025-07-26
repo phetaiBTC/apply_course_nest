@@ -42,6 +42,6 @@ export class Student {
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
     this.deletedAt = props.deletedAt ?? null;
-    this.educations = props.educations
+    this.educations = props.educations;
   }
 }
