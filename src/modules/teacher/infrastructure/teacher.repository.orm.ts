@@ -1,11 +1,11 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
+// import { JwtService } from "@nestjs/jwt";
 import { DataSource, Repository } from "typeorm";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { TRANSACTION_MANAGER_SERVICE } from "src/shared/constants/inject-key";
 import { ITransactionManager } from "src/infrastructure/transaction/transaction.interface";
 import { TeacherEntity } from "src/infrastructure/typeorm/teacher.orm-entity";
-import { SendMail } from "src/modules/mail/application/use-cases/sendMail";
+// import { SendMail } from "src/modules/mail/application/use-cases/sendMail";
 import { Teacher } from "../domain/teacher";
 import { User } from "src/modules/user/domain/user";
 import { UserMapper } from "src/modules/user/mapper/user.mapper";
@@ -18,7 +18,7 @@ import { fetchWithPagination } from "src/shared/utils/pagination.builder";
 @Injectable()
 export class TeacherRepositoryOrm {
     constructor(
-        private readonly jwtService: JwtService,
+        // private readonly jwtService: JwtService,
         @InjectDataSource() private readonly dataSource: DataSource,
         @Inject(TRANSACTION_MANAGER_SERVICE)
         private readonly transactionManagerService: ITransactionManager,
