@@ -31,6 +31,8 @@ export class ProvincesSeeder {
         for (const item of items) {
             const items = _respository.create(item);
             await _respository.save(items);
+            // console.log(`✅ Created Province: ${item.name}`);
         }
+        console.log('🎉 Province seeding complete.');
     }
 }

@@ -7,6 +7,7 @@ import { UsersSeeder } from './seeds/seed-users';
 import { ProvincesSeeder } from './seeds/seed-provincs';
 import { DistrictsSeeder } from './seeds/seed-districts';
 import { PermissionSeeder } from './seeds/seed-permission';
+import { RolesSeeder } from './seeds/seed-roles';
 @Injectable()
 export class SeederService {
   constructor(
@@ -16,7 +17,8 @@ export class SeederService {
     @Inject() private _userSeeder: UsersSeeder,
     @Inject() private _provinceSeeder: ProvincesSeeder,
     @Inject() private _districtSeeder: DistrictsSeeder,
-    @Inject() private _permissionSeeder: PermissionSeeder
+    @Inject() private _permissionSeeder: PermissionSeeder,
+    @Inject() private _roleSeeder: RolesSeeder
   ) { }
 
   async seed() {
@@ -26,8 +28,9 @@ export class SeederService {
         async (manager) => {
           await this._provinceSeeder.seed(manager);
           await this._districtSeeder.seed(manager);
-          await this._userSeeder.seed(manager);
           await this._permissionSeeder.seed(manager);
+          await this._roleSeeder.seed(manager);
+          await this._userSeeder.seed(manager);
         },
       );
     } catch (error) {

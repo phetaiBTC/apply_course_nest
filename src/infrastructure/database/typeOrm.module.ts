@@ -8,6 +8,7 @@ import { TransactionModule } from 'src/infrastructure/transaction/transaction.mo
 import { ProvincesSeeder } from './seeders/seeds/seed-provincs';
 import { DistrictsSeeder } from './seeders/seeds/seed-districts';
 import { PermissionSeeder } from './seeders/seeds/seed-permission';
+import { RolesSeeder } from './seeders/seeds/seed-roles';
 
 @Module({
     imports: [
@@ -23,13 +24,13 @@ import { PermissionSeeder } from './seeders/seeds/seed-permission';
                 username: configService.getOrThrow('DB_USERNAME'),
                 password: configService.getOrThrow('DB_PASSWORD'),
                 database: configService.getOrThrow('DB_NAME'),
-                entities: [join(__dirname,'..', 'typeorm', '**', '*.orm-entity.{js,ts}')],
+                entities: [join(__dirname, '..', 'typeorm', '**', '*.orm-entity.{js,ts}')],
                 synchronize: configService.getOrThrow('DB_SYNCHRONIZE') === 'true',
                 logging: configService.getOrThrow('DB_LOGGING') === 'true',
                 migrationsTableName: 'migrations',
             }),
         })
     ],
-    providers:[UsersSeeder,SeederService,ProvincesSeeder,DistrictsSeeder,PermissionSeeder]
+    providers: [UsersSeeder, SeederService, ProvincesSeeder, DistrictsSeeder, PermissionSeeder, RolesSeeder]
 })
 export class TypeOrmRepositoryModule { }

@@ -1197,6 +1197,9 @@ export class DistrictsSeeder {
         for (const item of items) {
             const items = _respository.create(item);
             await _respository.save(items);
+            // console.log(`✅ Created District: ${item.name}`);
         }
+
+        console.log('🎉 District seeding complete.');
     }
 }

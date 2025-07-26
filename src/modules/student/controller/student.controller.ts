@@ -31,33 +31,33 @@ export class StudentController {
     async create(@Body() student: CreateStudentDto){
         return await this.createStudentUseCase.execute(student);
     }
-    // @Permissions('get_one_student')
+    @Permissions('get_one_student')
     @Get(':id')
     async getOne(@Param('id') id: number){
         return StudentMapper.toResponse(await this.getOneStudentUseCase.execute(id));
     }
-    // @Permissions('get_all_student')
+    @Permissions('get_all_student')
     @Get()
     async getAll(@Query() query: PaginationDto): Promise<PaginatedResponse<StudentResponse>>{
         const students = await this.getAllStudentUseCase.execute(query);
         return StudentMapper.toResponseList(students.data, students.pagination);
     }
-
+    @Permissions('update_student')
     @Patch(':id')
     async update(@Param('id') id: number , @Body() dto: UpdateStudentDto){
         return StudentMapper.toResponse(await this.updateStudentUseCase.execute(id, dto));
     }
-
+    @Permissions('hard_delete_student')
     @Delete('hard/:id')
     async hardDelete(@Param('id') id: number){
         return await this.hardDeleteStudentUseCase.execute(id);
     }
-
+    @Permissions('soft_delete_student')
     @Delete('soft/:id')
     async softDelete(@Param('id') id: number){
         return await this.softDeleteStudentUseCase.execute(id);
     }
-
+    @Permissions('restore_student')
     @Patch('restore/:id')
     async restore(@Param('id') id: number){
         return await this.restoreStudentUseCase.execute(id);

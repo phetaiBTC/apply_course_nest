@@ -13,6 +13,7 @@ import { SoftDeleteCourseCompletionRecordsUseCase } from "../application/use-cas
 import { RestoreCourseCompletionRecordsUseCase } from "../application/use-cases/command/restore-course_completion_records.use-case";
 import { CourseCompletionRecordsResponse } from "../interface/course_completion_records.interface";
 import { PaginatedResponse } from "src/shared/interface/pagination-response";
+import { Permissions } from "src/shared/decorators/permissions.decorator";
 
 @Controller('course-completion-records')
 export class CourseCompletionRecordsController {
@@ -25,38 +26,40 @@ export class CourseCompletionRecordsController {
         private readonly softDeleteCourseCompletionRecordsUseCase: SoftDeleteCourseCompletionRecordsUseCase,
         private readonly restoreCourseCompletionRecordsUseCase: RestoreCourseCompletionRecordsUseCase
     ) { }
+    @Permissions('get_one_course_completion_records')
 
     @Get(':id')
     async getOne(id: number): Promise<CourseCompletionRecordsResponse> {
         return CourseCompletionRecordsMapper.toResponse(await this.getOneCourseCompletionRecordsUseCase.execute(id));
     }
-
+    @Permissions('create_course_completion_records')
     @Post()
     async create(@CurrentUser() user: UserPayload, @Body() dto: CourseCompletionRecordsDto): Promise<CourseCompletionRecordsResponse> {
         return CourseCompletionRecordsMapper.toResponse(await this.createCourseCompletionRecordsUseCase.execute(dto, user.sub));
     }
-
+    @Permissions('get_all_course_completion_records')
     @Get()
     async getAll(@Query() query: PaginationDto): Promise<PaginatedResponse<CourseCompletionRecordsResponse>> {
         const course_completion_records = await this.getAllCourseCompletionRecordsUseCase.execute(query);
         return CourseCompletionRecordsMapper.toResponseList(course_completion_records.data, course_completion_records.pagination);
     }
-
+    @Permissions('update_course_completion_records')
     @Patch(':id')
     async update(@Param('id') id: number, @Body() dto: CourseCompletionRecordsDto, @CurrentUser() user: UserPayload): Promise<CourseCompletionRecordsResponse> {
         return CourseCompletionRecordsMapper.toResponse(await this.updateCourseCompletionRecordsUseCase.execute(id, dto, user.sub));
     }
-
+    @Permissions('hard_delete_course_completion_records')
     @Delete('hard/:id')
     async hardDelete(@Param('id') id: number) {
         return this.hardDeleteCourseCompletionRecordsUseCase.execute(id);
     }
-
+    @Permissions('soft_delete_course_completion_records')
     @Delete('soft/:id')
     async softDelete(@Param('id') id: number) {
         return this.softDeleteCourseCompletionRecordsUseCase.execute(id);
     }
 
+    @Permissions('restore_course_completion_records')
     @Patch('restore/:id')
     async restore(@Param('id') id: number) {
         return this.restoreCourseCompletionRecordsUseCase.execute(id);

@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { GetUserByEmailUseCase } from "src/modules/user/application/use-cases/query/get-by-email-use.case";
+import { GetUserByEmailUseCase } from "src/modules/user/application/use-cases/query/get-email-user.use-case";
 import { UserRepository } from "src/modules/user/domain/user.repository";
 
 @Injectable()
