@@ -22,8 +22,8 @@ export interface CourseCompletionRecordsResponse {
     total_score: number;
     is_certified: boolean;
     status: CourseCompletionStatus;
-    completion_date: Date;
-    certificate_issued_date: Date;
+    completion_date: string;
+    certificate_issued_date: string;
     total_study_hours: number
     created_by?: UserResponse
     createdAt?: string

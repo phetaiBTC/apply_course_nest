@@ -2,7 +2,7 @@ import { CourseCompletionRecordsEntity } from "src/infrastructure/typeorm/course
 import { CourseCompletionRecords } from "../domain/course_completion_records";
 import { ApplyCoursesMapper } from "src/modules/apply_courses/mapper/apply_courses.mapper";
 import { UserMapper } from "src/modules/user/mapper/user.mapper";
-import { formatTimeStamp } from "src/shared/utils/formatTime.util";
+import { formatTimeStamp, formatTimeUtil } from "src/shared/utils/formatTime.util";
 import { IPagination } from "src/shared/interface/pagination-interface";
 import { CourseCompletionRecordsResponse } from "../interface/course_completion_records.interface";
 
@@ -42,8 +42,8 @@ export class CourseCompletionRecordsMapper {
             total_score: domain.total_score,
             is_certified: domain.is_certified,
             status: domain.status,
-            completion_date: domain.completion_date,
-            certificate_issued_date: domain.certificate_issued_date,
+            completion_date: formatTimeUtil(domain.completion_date),
+            certificate_issued_date: formatTimeUtil(domain.certificate_issued_date),
             total_study_hours: domain.total_study_hours,
             created_by: UserMapper.toResponse(domain.created_by!),
             ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt),
