@@ -13,7 +13,7 @@ export class Course {
     public registration_end_date: Date
     public start_date: Date
     public end_date: Date
-    public description: string
+    public description?: string
     public status: CourseStatus
     public teacher: Teacher
     public category: CourseCategory

@@ -18,7 +18,7 @@ import { UpdateTeacherUseCase } from "./application/use-cases/command/update-tea
 import { RestoreTeacherUseCase } from "./application/use-cases/command/restore-teacher.use-case";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([TeacherEntity, UserEntity]),AuthModule,MailModule],
+    imports: [TypeOrmModule.forFeature([TeacherEntity, UserEntity]), AuthModule, MailModule],
     controllers: [TeacherController],
     providers: [
         {
@@ -41,6 +41,12 @@ import { RestoreTeacherUseCase } from "./application/use-cases/command/restore-t
         UpdateTeacherUseCase,
         RestoreTeacherUseCase
     ],
-    exports: []
+    exports: [
+        {
+            provide: 'TeacherRepository',
+            useClass: TeacherRepositoryOrm
+        },
+        GetOneTeacherUseCase
+    ]
 })
 export class TeacherModule { }

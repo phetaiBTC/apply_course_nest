@@ -4,3 +4,11 @@ export interface AuthPayload{
     permissions: string[],
     roles: string[]
 }
+
+export interface UserPayload{
+    sub: number,
+    email: string,
+    permissions: string[],
+    iat: number,
+    exp: number
+}

@@ -14,7 +14,7 @@ export class VerifyEmail {
     async execute(token: string): Promise<{message:string}> {
         const payload = await this.jwtService.decode(token);
         const isUser = await this.getUserByEmailUseCase.execute(payload.email);
-        console.log(isUser);
+        // console.log(isUser);
         if(!isUser) throw new NotFoundException('User not found');
         isUser.is_verified = true;
         await this.userRepository.save(isUser);

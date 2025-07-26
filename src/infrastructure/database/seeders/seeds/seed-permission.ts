@@ -24,11 +24,12 @@ export class PermissionSeeder {
         permissionNames.add(name);
       }
     }
-
+    let idCounter = 1;
     for (const name of permissionNames) {
       const exists = await repository.findOneBy({ name });
       if (!exists) {
         const permission = repository.create({
+          id: idCounter++,
           name,
           display_name: this.formatDisplayName(name),
         });

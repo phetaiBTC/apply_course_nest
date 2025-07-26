@@ -1,27 +1,25 @@
 // create module
-mkdir -p src/modules/course/application/use-cases/command \
-         src/modules/course/application/use-cases/query \
-         src/modules/course/application/dto \
-         src/modules/course/domain \
-         src/modules/course/mapper \
-         src/modules/course/interface \
-         src/modules/course/infrastructure \
-         src/modules/course/controller && \
-touch src/modules/course/application/dto/create-course.dto.ts \
-      src/modules/course/domain/course.ts \
-      src/modules/course/domain/course.repository.ts \
-      src/modules/course/interface/course.interface.ts \
-      src/modules/course/infrastructure/course.repository.orm.ts \
-      src/modules/course/mapper/course.mapper.ts \
-      src/modules/course/controller/course.controller.ts \
-      src/modules/course/course.module.ts
-
-// create crud
-touch src/modules/course/application/use-cases/command/create-course.use-case.ts \
-      src/modules/course/application/use-cases/query/get-all-course.use-case.ts \
-      src/modules/course/application/use-cases/query/get-one-course.use-case.ts \
-      src/modules/course/application/use-cases/command/hard-delete-course.use-case.ts \
-      src/modules/course/application/use-cases/command/soft-delete-course.use-case.ts \
-      src/modules/course/application/use-cases/command/restore-course.use-case.ts \
-      src/modules/course/application/use-cases/command/update-course.use-case.ts
+mkdir -p src/modules/course_completion_records/application/use-cases/command \
+         src/modules/course_completion_records/application/use-cases/query \
+         src/modules/course_completion_records/application/dto \
+         src/modules/course_completion_records/domain \
+         src/modules/course_completion_records/mapper \
+         src/modules/course_completion_records/interface \
+         src/modules/course_completion_records/infrastructure \
+         src/modules/course_completion_records/controller && \
+touch src/modules/course_completion_records/application/dto/create-course_completion_records.dto.ts \
+      src/modules/course_completion_records/domain/course_completion_records.ts \
+      src/modules/course_completion_records/domain/course_completion_records.repository.ts \
+      src/modules/course_completion_records/interface/course_completion_records.interface.ts \
+      src/modules/course_completion_records/infrastructure/course_completion_records.repository.orm.ts \
+      src/modules/course_completion_records/mapper/course_completion_records.mapper.ts \
+      src/modules/course_completion_records/controller/course_completion_records.controller.ts \
+      src/modules/course_completion_records/course_completion_records.module.ts \
+touch src/modules/course_completion_records/application/use-cases/command/create-course_completion_records.use-case.ts \
+      src/modules/course_completion_records/application/use-cases/query/get-all-course_completion_records.use-case.ts \
+      src/modules/course_completion_records/application/use-cases/query/get-one-course_completion_records.use-case.ts \
+      src/modules/course_completion_records/application/use-cases/command/hard-delete-course_completion_records.use-case.ts \
+      src/modules/course_completion_records/application/use-cases/command/soft-delete-course_completion_records.use-case.ts \
+      src/modules/course_completion_records/application/use-cases/command/restore-course_completion_records.use-case.ts \
+      src/modules/course_completion_records/application/use-cases/command/update-course_completion_records.use-case.ts
       

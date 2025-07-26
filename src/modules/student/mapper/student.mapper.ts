@@ -36,7 +36,7 @@ export class StudentMapper {
         return entity;
     }
     static toResponse(domain: Student) {
-        console.log(domain);
+        // console.log(domain);
         return {
             id: domain.id!,
             name: domain.name,

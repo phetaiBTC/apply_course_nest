@@ -16,6 +16,9 @@ import { TeacherModule } from './modules/teacher/teacher.module';
 import { StudentEducationModule } from './modules/student_education/student_education.module';
 import { PermissionModule } from './modules/permission/permission.module';
 import { CourseCategoryModule } from './modules/course_category/course_category.module';
+import { CourseModule } from './modules/course/course.module';
+import { ApplyCoursesModule } from './modules/apply_courses/apply_courses.module';
+import { CourseCompletionRecordsModule } from './modules/course_completion_records/course_completion_records.module';
 
 @Module({
   imports: [
@@ -34,7 +37,10 @@ import { CourseCategoryModule } from './modules/course_category/course_category.
     MailModule,
     StudentEducationModule,
     PermissionModule,
-    CourseCategoryModule
+    CourseCategoryModule,
+    CourseModule,
+    ApplyCoursesModule,
+    CourseCompletionRecordsModule
   ],
   providers: [
     {
