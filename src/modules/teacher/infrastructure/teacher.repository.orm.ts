@@ -32,7 +32,10 @@ export class TeacherRepositoryOrm {
                 this.dataSource,
                 async (manager) => {
                     const userEntity = UserMapper.toOrm(user);
-                    const savedUser = await manager.getRepository(UserEntity).save(userEntity);
+                    const savedUser = await manager.getRepository(UserEntity).save({
+                        ...userEntity,
+                        roles: [{ id: 3 }]
+                    });
                     const teacherEntity = TeacherMapper.toOrm({
                         ...Teacher,
                         user: UserMapper.toDomain(savedUser)

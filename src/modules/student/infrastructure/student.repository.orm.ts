@@ -34,7 +34,10 @@ export class StudentRepositoryOrm implements StudentRepository {
                 this.dataSource,
                 async (manager) => {
                     const userEntity = UserMapper.toOrm(user);
-                    const savedUser = await manager.getRepository(UserEntity).save(userEntity);
+                    const savedUser = await manager.getRepository(UserEntity).save({
+                        ...userEntity,
+                        roles: [{ id: 2 }]
+                    });
                     const studentEntity = StudentMapper.toOrm({
                         ...student,
                         user: UserMapper.toDomain(savedUser)
@@ -56,7 +59,7 @@ export class StudentRepositoryOrm implements StudentRepository {
         }
     }
     async findOne(id: number): Promise<Student | null> {
-        const student = await this.studentRepository.findOne({ where: { id: id }, relations: ['user', 'district', 'district.province', 'educations', 'educations.student_id','educations.student_id.user'] });
+        const student = await this.studentRepository.findOne({ where: { id: id }, relations: ['user', 'district', 'district.province', 'educations', 'educations.student_id', 'educations.student_id.user'] });
         // console.log(student);
         return student ? StudentMapper.toDomain(student) : null;
     }
